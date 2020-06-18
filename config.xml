@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<widget id="com.example.HS" 
+		version="1.0.0" 
+		xmlns="http://www.w3.org/ns/widgets" 
+		xmlns:gap="https://phonegap.com/ns/1.0" 
+		xmlns:cdv="http://cordova.apache.org/ns/1.0">
+
+<name>APP MOVIL</name>
+
+<description>
+    Aplicacion para uso del transporte urbano. LM SOLUCIONES SAS
+</description>
+
+<author email="soporte@lmsoluciones.co" href="http://www.lmsoluciones.co">
+    LM SOLUCIONES
+</author>
+
+<content src="index.html" />
+<access origin="*" />
+
+<allow-intent href="http://*/*" />
+<allow-intent href="https://*/*" />
+<allow-intent href="tel:*" />
+<allow-intent href="sms:*" />
+<allow-intent href="mailto:*" />
+<allow-intent href="geo:*" />
+<platform name="android">
+    <allow-intent href="market:*" />
+</platform>
+<platform name="ios">
+    <allow-intent href="itms:*" />
+    <allow-intent href="itms-apps:*" />
+</platform>
+
+<plugin name="cordova-plugin-whitelist" spec="1.3.4" />
+<plugin name="cordova-plugin-googlemaps" />
+<plugin name="cordova-plugin-browsersync" />
+
+
+<preference name="phonegap-version" value="cli-8.1.1" />
+<preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
+<preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
+
+<engine name="ios" spec="^5.0.1" />
+<engine name="android" spec="^8.0.0" />
+<engine name="browser" spec="~5.0.4" />
+
+<icon src="images/icon.png" />
+
+</widget>

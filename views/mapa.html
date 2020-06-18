@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mapa</title>
+
+    <link href="../libs/bootstrap.css" rel="stylesheet">
+    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
+  
+  <style>
+    .labels {
+        color: red;
+        background-color: white;
+        font-family: "Lucida Grande", "Arial", sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: center;
+        width: 50px;
+        border: 2px solid black;
+        white-space: nowrap;
+        border-radius: 10pt;
+        margin-left: -25px !important;
+      }
+  </style>
+  
+  </head>
+
+  <body id="page-top">
+
+    <input id="inpVehiculo" type="text" class="form-control input-sm btnFloatMap z-index200 borderRadius7pt" style="color:black; font-size: 15px; width: 110px;" placeholder="Vehiculo"/> 
+    <button id="btnBusqueda" type="button" class='btn-floating btn btn-default btn-sm btnFloatMap paddingLaterales12px backgroundBlue z-index200 borderRadius7pt' style="left: 130px; float:left; color:white; padding: 7px;">Buscar</button>  
+
+    <div id="googleMap" style="width:100%;height:100vh;"></div>
+
+
+    <!-- DETALLE -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalDetalle">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Detalles del vehiculo <span id="spanVehiculo"></span></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="padding-top: 7px;">
+
+              <input type="hidden" id="inpVehiculoHidden" name="inpVehiculoHidden">
+
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#tabDatosGeneral" role="tab" aria-controls="tabDatosGeneral" aria-selected="true">Datos Generales</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tabConsolidado" role="tab" aria-controls="tabConsolidado" aria-selected="false">Consolidado</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tabDetalle" role="tab" aria-controls="tabDetalle" aria-selected="false">Detalle</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="tabDatosGeneral">
+                  <div class="container">
+                    <div class="row marginTop10px">
+                        <div class="col-9">
+                            <label class="labelStyle">Conductor:</label>
+                            <input type="text" name="inpConductor" id="inpConductor" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                        <div class="col-3">
+                            <label class="labelStyle">Turno:</label>
+                            <input type="text" name="inpTurno" id="inpTurno" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                    </div>
+                    <div class="row marginTop5px">
+                        <div class="col-12 col-sm-5">
+                            <label class="labelStyle">Velocidad:</label>
+                            <div class="input-group">
+                              <input type="text" name="inpVelocidad" id="inpVelocidad" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                              <div class="input-group-append inputSmallSinPad">
+                                <span class="input-group-text backgroundWhite fontSize13px">Km/H</span>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-7">
+                            <label class="labelStyle">Ultimo Dato:</label>
+                            <input type="text" name="inpUltimoDato" id="inpUltimoDato" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                    </div>
+                    <div class="row marginTop5px">
+                        <div class="col-12">
+                            <label class="labelStyle">Direccion:</label>
+                            <input type="text" name="inpDireccion" id="inpDireccion" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                    </div>
+                    <div class="row marginTop5px">
+                        <div class="col-6">
+                            <label class="labelStyle">Hora Despacho:</label>
+                            <input type="text" name="inpHoraDespacho" id="inpHoraDespacho" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                        <div class="col-6">
+                            <label class="labelStyle">Estado Viaje:</label>
+                            <input type="text" name="inpEstado" id="inpEstado" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="tabConsolidado">
+
+                  <div class="row marginTop10px">
+                      <div class="d-none d-sm-block col-sm-3">
+                          <label class="labelStyle">Fecha:</label>
+                      </div>
+                      <div class="col-7 col-sm-6">
+                          <input type="date" name="inpFechaConsolidado" id="inpFechaConsolidado" class="form-control input-sm inputSmall">
+                      </div>
+                      <div class="col-5 col-sm-3">
+                          <button type="button" id="btnCargarConsolidado" class="btn btn-primary inputSmall width100porciento">Cargar</button>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                    <div class="row marginTop10px">
+                        <div class="col-4 textCenter centerDiv" style="background: #007BFF; color: white">
+                            <label class="labelStyle">TOTALES</label>
+                        </div>
+                        <div class="col-4 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
+                            <label id="lblTotTimConsolidado" class="labelStyle">Timbs: -</label>
+                        </div>
+                        <div class="col-4 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
+                            <label id="lblTotBloqConsolidado" class="labelStyle">Bloqs: -</label>
+                        </div>
+                    </div>                  
+                  </div>
+
+                  <div class="table-responsive height78porciento marginTop10px">
+                      <div id="gridConsolidados"></div> 
+                  </div>
+
+                </div>
+                <div class="tab-pane fade" id="tabDetalle">
+                    <div class="row marginTop10px">
+                        <div class="d-none d-sm-block col-sm-3">
+                            <label class="labelStyle">Fecha:</label>
+                        </div>
+                        <div class="col-7 col-sm-6">
+                            <input type="date" name="inpFechaDetalle" id="inpFechaDetalle" class="form-control input-sm inputSmall">
+                        </div>
+                        <div class="col-5 col-sm-3">
+                            <button type="button" id="btnCargarDetalle" class="btn btn-primary inputSmall width100porciento">Cargar</button>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                      <div class="row marginTop10px">
+                          <div class="col-3 textCenter centerDiv" style="background: #007BFF; color: white">
+                              <label class="labelStyle">TOTALES</label>
+                          </div>
+                          <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
+                              <label id="lblTotSubDetalle" class="labelStyle">Sub.: -</label>
+                          </div>
+                          <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
+                              <label id="lblTotBajDetalle" class="labelStyle">Baj.: -</label>
+                          </div>
+                          <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
+                              <label id="lblTotBloqDetalle" class="labelStyle">Bloqs: -</label>
+                          </div>
+                      </div>                  
+                    </div>
+
+                    <div class="table-responsive height78porciento marginTop10px">
+                        <div id="gridDetalle"></div> 
+                    </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script src="../libs/jquery.js"></script>
+    <script src="../libs/bootstrap.js"></script>
+    <script src="../libs/jquery.easing.js"></script>
+    <script src="../libs/jqx-all.js"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>-->
+    <!-- SWEET ALERTS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.2/dist/sweetalert2.all.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>-->
+
+    <script src="../js/scripts.js"></script>
+    <script src="../js/functionsUtiles.js"></script>
+    <script src="../js/views/app.js"></script>
+    <script src="../js/views/mapa.js"></script>
+
+  </body>
+
+</html>

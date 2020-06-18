@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EXCESOS VELOCIDAD</title>
+
+    <link href="../libs/bootstrap.css" rel="stylesheet">
+    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
+
+  <style>
+      html{
+        touch-action: none;  
+      }
+  </style>
+
+  </head>
+
+  <body id="page-top">
+
+    <div id="wrapper">
+      <div id="content-wrapper" class="paddingBottom0">
+
+        <div class="container-fluid" style="height: 90vh">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb marginBottom10px">
+            <li class="breadcrumb-item">
+              <a href="#" class="MenuLink" data-id="MenuDashboard">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active">Excesos Velocidad</li>
+          </ol>
+          
+          <div class="row">
+            <div class="col-12 col-sm-3 marginTop5px">
+                <input type="date" id="inpFecha" class="form-control input-sm inputSmall" value="" >
+            </div>
+            <div class="col-7 col-sm-3 marginTop5px">
+                <div class="input-group">
+                  <div class="input-group-prepend inputSmallSinPad">
+                    <div class="input-group-text fontSize13px paddingLaterales10px">Vehiculo: </div>
+                  </div>
+                  <select class="form-control input-sm inputSmall" id="inpVehiculo">
+                        
+                  </select>
+                </div>  
+            </div>
+            <div class="col-5 col-sm-3 marginTop5px">
+                <div class="input-group">
+                  <input type="number" id="inpVelocidad" name="inpVelocidad" value="50" class="form-control input-sm inputSmall">
+                  <div class="input-group-prepend inputSmallSinPad">
+                    <div class="input-group-text fontSize13px paddingLaterales10px">Km/H</div>
+                  </div>
+                </div>  
+            </div>
+            <div class="col-12 col-sm-3 marginTop5px">
+              <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar"><i class="fas fa-search"></i> Cargar</button>
+            </div>
+          </div>
+
+          <div class="table-responsive height78porciento marginTop10px">
+              <div id="gridDatos"></div> 
+          </div>
+            
+
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- UBICACION -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalUbicar" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ubicacion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="padding-top: 7px;">
+                
+                <label class="labelStyle">Direccion:</label>
+                <br>
+                <label id="lblDireccion" class="margin0">-</label>
+
+                <hr class="styleHR">
+
+                <div id="googleMap" style="width:100%;height:250px;"></div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary inputSmall" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <script src="../libs/jquery.js"></script>
+    <script src="../libs/bootstrap.js"></script>
+    <script src="../libs/jquery.easing.js"></script>
+    <script src="../libs/jqx-all.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>
+    <!-- SWEET ALERTS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.2/dist/sweetalert2.all.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>-->
+
+    <script src="../js/scripts.js"></script>
+    <script src="../js/functionsUtiles.js"></script>
+    <script src="../js/views/excesosVelocidad.js"></script>
+
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>VIAJES DEL DIA</title>
+
+    <link href="../libs/bootstrap.css" rel="stylesheet">
+    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
+
+    <style>
+        html{
+          touch-action: none;  
+        }
+    </style>
+
+  </head>
+
+  <body id="page-top">
+
+    <div id="wrapper">
+      <div id="content-wrapper" class="paddingBottom0">
+
+        <div class="container-fluid" style="height: 90vh">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb marginBottom10px">
+            <li class="breadcrumb-item">
+              <a href="#" class="MenuLink" data-id="MenuDashboard">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active">Viajes del Dia</li>
+          </ol>
+          
+          <div class="row">
+            <div class="col-12 col-sm-3 marginTop5px">
+                <input type="date" id="inpFecha" class="form-control input-sm inputSmall" value="<>" >
+            </div>
+            <div class="col-12 col-sm-3 marginTop5px">
+                <label>Fecha Dia <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" checked="true" value="0"></label>
+            </div>
+            <div class="col-12 col-sm-3 marginTop5px">
+                <label>Fecha Recaudo <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" value="1"></label>
+            </div>
+            <div class="col-12 col-sm-3 marginTop5px">
+              <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar">
+                <i class="fas fa-search"></i> Cargar</button>
+            </div>
+          </div>
+
+          <div class="table-responsive height78porciento marginTop10px">
+              <div id="gridDatos"></div> 
+          </div>
+            
+
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <script src="../libs/jquery.js"></script>
+    <script src="../libs/bootstrap.js"></script>
+    <script src="../libs/jquery.easing.js"></script>
+    <script src="../libs/jqx-all.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>
+    <!-- SWEET ALERTS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.2/dist/sweetalert2.all.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>-->
+
+    <script src="../js/scripts.js"></script>
+    <script src="../js/functionsUtiles.js"></script>
+    <script src="../js/views/app.js"></script>
+    <script src="../js/views/viajes.js"></script>
+
+
+
+
+  </body>
+
+</html>
