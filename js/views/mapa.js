@@ -5,7 +5,7 @@ $(function() {
       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU',
       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU'
     });
-*/
+*//*
     document.addEventListener('deviceready', function() {
 
       var div = document.getElementById("googleMap");
@@ -33,8 +33,8 @@ $(function() {
       marker.showInfoWindow();
 
     }, false);
+*/
 
-/*
     var markers = {};
 
     var latMapa = "11.0073953";
@@ -45,7 +45,7 @@ $(function() {
     var infowindow = new google.maps.InfoWindow({
         content: ''
     });
-*/
+
 
 
 
