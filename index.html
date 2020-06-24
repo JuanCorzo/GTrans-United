@@ -14,42 +14,58 @@
     <link href="libs/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   </head>
 
-  <body class="bg-dark">
+  <body class="backgroundImage">
 
 
-    <div class="container">
-      <div class="card card-login mx-auto mt-5">
-        <div class="card-header textCenter fontSize25px">Iniciar sesion</div>
+    <div class="container paddingLaterales25px" style="margin-top: 15%">
+
+      <h3 class="textCenter fontSize50px colorWhite fontFamilyTitles">Bienvenido!</h3>
+      <h3 class="textCenter fontSize18px colorWhite">Gema App es la mano derecha de los propietarios!</h3>
+      <h3 class="textCenter fontSize15px colorWhite">Un placer tenerte aqui :)</h3>
+
+      <div class="card card-login mx-auto marginTop20px" style="background: #ffffffcf">
         <div class="card-body">
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="inputCedula" class="form-control" placeholder="Cedula" autofocus="autofocus" autocomplete="off" value="800129395-1">
-                <label for="inputCedula">Cedula</label>
+                <input type="text" id="inputCedula" class="form-control textCenter fontSize18px" placeholder="Cedula" autofocus="autofocus" autocomplete="off" value="800129395-1">
+                <label for="inputCedula" class="textCenter">Cedula</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" autocomplete="new-password" value="800129395-1">
-                <label for="inputPassword">Contraseña</label>
+                <input type="password" id="inputPassword" class="form-control textCenter fontSize18px" placeholder="Contraseña" autocomplete="new-password" value="800129395-1">
+                <label for="inputPassword" class="textCenter">Contraseña</label>
               </div>
             </div>
             <a class="btn btn-primary btn-block colorWhite" id="btnlogin">Ingresar</a>
         </div>
       </div>
+
     </div>
 
 
-   <script src="libs/jquery.js"></script>
-   <script src="libs/bootstrap.js"></script>
-   <script src="libs/jquery.easing.js"></script>
-   <!-- SWEET ALERTS -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.2/dist/sweetalert2.all.min.js"></script>
-   <!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>-->
 
-   <script src="js/functionsUtiles.js"></script>
-   <script src="js/views/index.js"></script>
+    <footer style="position: fixed; width: 100%; bottom: 50px;">
+        <h4 class="textCenter fontSize13px colorGray">Creado Por</h4>
+        <div class="centerDiv">
+          <a class="backgroundWhite aLogoBig" href="#">
+            <img src="images/lm.png" class="imgLogoBig">
+          </a>
+        </div>  
+    </footer>
+    
+
+    <script src="libs/jquery.js"></script>
+    <script src="libs/bootstrap.js"></script>
+    <script src="libs/jquery.easing.js"></script>
+    <script src="libs/sweetalert2.js"></script>
+
+
+    <script src="js/functionsUtiles.js"></script>
+    <script src="js/views/index.js"></script>
 
   </body>
 </html>

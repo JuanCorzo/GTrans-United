@@ -42,8 +42,8 @@ $(function() {
             labels: data.name,
             datasets: [{
               label: 'Timbradas',
-              backgroundColor: "blue",
-              borderColor: "red",
+              backgroundColor: "#007BFF",
+              borderColor: "#007BFF",
               borderWidth: 1,
               data: data.data
             }]

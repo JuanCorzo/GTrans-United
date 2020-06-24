@@ -10,13 +10,13 @@ $(function() {
 	        success: function (res){
 	        	localStorage.setItem('token', res.data.token);
 	        	localStorage.setItem('userData', JSON.stringify(res.data.userData));
-	            alert(res.message);
+	            Swal.fire({title: res.message, icon: 'success'});
 	            $(location).attr('href','views/app.html');
 
 	            return false;
 	        },
 	        error: function (res){
-	        	alert(res.responseJSON.message);
+	        	Swal.fire('Oops...', res.responseJSON.message, 'error');
 	            return false;
 	        }
 	    });
@@ -25,12 +25,12 @@ $(function() {
 
 	$("#btnlogin").click(function(){
 		if($("#inputCedula").val()==""){
-			alert("Debe ingresar una cedula");
+			Swal.fire('Oops...', 'Debe ingresar una cedula', 'error');
 			return false;
 		}
 
 		if($("#inputPassword").val()==""){
-			alert("Debe ingresar una contraseña");
+			Swal.fire('Oops...', 'Debe ingresar una contraseña', 'error');
 			return false;
 		}
 

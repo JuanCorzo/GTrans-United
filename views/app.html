@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Portal Afiliados</title>
 
@@ -19,30 +17,27 @@
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <nav class="navbar navbar-expand backgroundWhiteClaro static-top">
 
-      <a class="backgroundWhiteOscuro aLogo" href="#">
-        <img src="../images/lm.png" class="imgLogo">
-      </a>
-
-      <a class="navbar-brand mr-1" href="#">Portal Afiliados</a>
+      <a class="navbar-brand mr-1 fontSize18px colorBlack" href="#">Portal Afiliados</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-bars colorBlack"></i>
       </button>
-
-      <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <label id="lblpropietario" class="colorWhite">Propietario: </label>
-      </div>
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle colorWhiteOscuro"></i>
+            <i class="fas fa-user-circle colorBlack"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#" id="btnCerrarSesion">Cerrar Sesion</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="min-width: 13rem;">
+              <div class="">
+                <label class="text-center fontSize15px colorGray width100porciento marginBottom5px">Usuario:</label>
+                <label id="lblpropietario" class="text-center fontSize13px paddingLaterales12px"></label>
+              </div>
+              <hr class="marginSuperior10px">
+              <a class="dropdown-item text-center" href="#" id="btnCerrarSesion">Cerrar Sesion</a>
           </div>
         </li>
       </ul>
@@ -83,41 +78,32 @@
             <span>Graficas</span>
           </a>
         </li>
+        <!-- ******************* -->
+        <li class="nav-item centerDiv" style="margin-top: auto;">
+          <a class="backgroundWhiteOscuro aLogo" href="#">
+            <img src="../images/lm.png" class="imgLogo">
+          </a>
+        </li>
       </ul>
 
       <div id="content-wrapper" class="padding0">
 
-        <div class="container-fluid padding0" style="height: 90vh">
+        <div class="container-fluid padding0" style="height: 100%">
 
-            <div class="height98porciento" id="divIframe">
+            <div id="divIframe" style="height: 100%">
               <iframe src="dashboard.html" class="width100porciento height100porciento" frameborder="0" vspace="0" hspace="0" marginwidth="0" marginheight="0" /></iframe>
             </div>
 
         </div>
 
-        <footer class="sticky-footer height40px">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span id="spanPropietario"></span>
-            </div>
-          </div>
-        </footer>
-
       </div>
 
     </div>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
     <script src="../libs/jquery.js"></script>
     <script src="../libs/bootstrap.js"></script>
     <script src="../libs/jquery.easing.js"></script>
-    <!-- SWEET ALERTS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.2/dist/sweetalert2.all.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>-->
+    <script src="../libs/sweetalert2.js"></script>
 
     <script src="../js/scripts.js"></script>
     <script src="../js/functionsUtiles.js"></script>

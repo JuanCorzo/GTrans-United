@@ -19,7 +19,7 @@ $(function () {
     var polilineaRecorrido;
     var recorriendo = false;
     var fullScreen = false;
-    var misVehiculo = [];
+    var misVehiculo = [510, 730, 536, 616, 812];
     // ---------------------------
 /*
     $.ajax({
@@ -44,7 +44,8 @@ $(function () {
     map = new google.maps.Map(document.getElementById('googleMap'), {
         zoom: zoom,
         center: LatandLong,
-        fullscreenControl: false
+        fullscreenControl: false,
+        mapTypeControl: false
     });
 
     function cargarRutas() {
@@ -56,9 +57,9 @@ $(function () {
               map: map
             });
         });
-        cargarRelojes();
+       // cargarRelojes();
     }
-
+/*
     function cargarRelojes() {
         let response = {"resultado":true,"data":[{"id":"17","nombre":"ANTIGUO REX","latitud":"10.984697212190314","longuitud":"-74.77964550422081","estado":"1","observacion":"ANTIGUO REX","abreviatura":"REX","codegps":"3","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"20","nombre":"BASE 52","latitud":"10.980720","longuitud":"-74.792720","estado":"1","observacion":"BASE 52","abreviatura":"B52","codegps":"6","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"21","nombre":"BASE GUADALUPE","latitud":"11.00025","longuitud":"-74.788230","estado":"1","observacion":"BASE GUADALUPE","abreviatura":"GDA","codegps":"7","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"29","nombre":"CARREFOUR CALLE 30","latitud":"10.955800","longuitud":"-74.786290","estado":"1","observacion":"CARREFOUR CALLE 30","abreviatura":"C30","codegps":"15","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"33","nombre":"E.D.S LOS MANGOS","latitud":"10.932880","longuitud":"-74.764760","estado":"1","observacion":"E.D.S LOS MANGOS","abreviatura":"MGO","codegps":"19","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"38","nombre":"RELOJ PARQUE 100","latitud":"11.000470","longuitud":"-74.837020","estado":"1","observacion":"RELOJ PARQUE 100","abreviatura":"100","codegps":"24","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"40","nombre":"TERMINAL TRANSPORTE","latitud":"10.90966674950678","longuitud":"-74.79207224652293","estado":"1","observacion":"TERMINAL ENTRADA","abreviatura":"TER","codegps":"99","control":"1","base":"1","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"43","nombre":"LAS MALLAS","latitud":"10.910330","longuitud":"-74.779350","estado":"1","observacion":"LAS MALLAS","abreviatura":"MLL","codegps":"28","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"44","nombre":"MURILLO CON LA 4","latitud":"10.938266237529046","longuitud":"-74.79925990954791","estado":"1","observacion":"MURILLO CON LA 4","abreviatura":"LA4","codegps":"29","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"45","nombre":"ESTRELLA","latitud":"10.911100","longuitud":"-74.798250","estado":"1","observacion":"ESTRELLA","abreviatura":"EST","codegps":"30","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"46","nombre":"CALLE 30 CON 38","latitud":"10.97623","longuitud":"-74.777350","estado":"1","observacion":"CALLE 30 CON 38","abreviatura":"338","codegps":"31","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"47","nombre":"VILLA CAROLINA","latitud":"11.020300","longuitud":"-74.816150","estado":"1","observacion":"VILLA CAROLINA","abreviatura":"VLL","codegps":"32","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"48","nombre":"CALLE 76 CON CRA 60","latitud":"11.006680","longuitud":"-74.800160","estado":"1","observacion":"CALLE 76 CON CRA 60","abreviatura":"C76","codegps":"33","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"49","nombre":"PANORAMA","latitud":"10.946670","longuitud":"-74.786220","estado":"1","observacion":"PANORAMA","abreviatura":"PNR","codegps":"34","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"50","nombre":"CALLE 79 CON CRA 49","latitud":"10.999600","longuitud":"-74.811120","estado":"1","observacion":"CALLE 79 CON CRA 49","abreviatura":"C79","codegps":"35","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"52","nombre":"CALLE 48 CON 22","latitud":"10.966270","longuitud":"-74.795250","estado":"1","observacion":"CALLE 48 CON 22","abreviatura":"C48","codegps":"37","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"53","nombre":"AUTONOMA","latitud":"11.007390","longuitud":"-74.824990","estado":"1","observacion":"AUTONOMA","abreviatura":"S93","codegps":"38","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"55","nombre":"N\/A","latitud":"10.861068900","longuitud":"-74.800470049","estado":"1","observacion":"N\/A","abreviatura":"TSAL","codegps":"98","control":"1","base":"1","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"56","nombre":"PANORAMA","latitud":"10.946670","longuitud":"-74.786220","estado":"1","observacion":"PANORAMA","abreviatura":"PNR","codegps":"4","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"57","nombre":"TERMINAL LA CAROLINA","latitud":"10.90966674950678","longuitud":"-74.79207224652293","estado":"1","observacion":"TERMINAL LA CAROLINA","abreviatura":"TER","codegps":"1","control":"1","base":"1","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"58","nombre":"RELOJ PARQUE 100","latitud":"11.000470","longuitud":"-74.837020","estado":"1","observacion":"RELOJ PARQUE 100","abreviatura":"100","codegps":"17","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"59","nombre":"ESTRELLA","latitud":"10.911100","longuitud":"-74.798250","estado":"1","observacion":"ESTRELLA","abreviatura":"EST","codegps":"23","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"60","nombre":"CALLE 79 CON CRA 49","latitud":"10.999600","longuitud":"-74.811120","estado":"1","observacion":"CALLE 79 CON CRA 49","abreviatura":"C79","codegps":"25","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"61","nombre":"CALLE 76 CON CRA 60","latitud":"11.006680","longuitud":"-74.800160","estado":"1","observacion":"CALLE 76 CON CRA 60","abreviatura":"C76","codegps":"26","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"62","nombre":"CARREFOUR CALLE 30","latitud":"10.955800","longuitud":"-74.786290","estado":"1","observacion":"CARREFOUR CALLE 30","abreviatura":"C30","codegps":"28","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"63","nombre":"LAS MALLAS","latitud":"10.910330","longuitud":"-74.779350","estado":"1","observacion":"LAS MALLAS","abreviatura":"MLL","codegps":"34","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"64","nombre":"E.D.S LOS MANGOS","latitud":"10.932880","longuitud":"-74.764760","estado":"1","observacion":"E.D.S LOS MANGOS","abreviatura":"MGO","codegps":"35","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"65","nombre":"BASE 52","latitud":"10.980720","longuitud":"-74.792720","estado":"1","observacion":"BASE 52","abreviatura":"B52","codegps":"38","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"66","nombre":"BASE GUADALUPE","latitud":"11.00025","longuitud":"-74.788230","estado":"1","observacion":"BASE GUADALUPE","abreviatura":"GDA","codegps":"40","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"67","nombre":"ANTIGUO REX","latitud":"10.984697212190314","longuitud":"-74.77964550422081","estado":"1","observacion":"ANTIGUO REX","abreviatura":"REX","codegps":"41","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"68","nombre":"VILLA CAROLINA","latitud":"11.020300","longuitud":"-74.816150","estado":"1","observacion":"VILLA CAROLINA","abreviatura":"VLL","codegps":"49","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"69","nombre":"CALLE 48 CON 22","latitud":"10.966270","longuitud":"-74.795250","estado":"1","observacion":"CALLE 48 CON 22","abreviatura":"C48","codegps":"50","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"70","nombre":"AUTONOMA","latitud":"11.007390","longuitud":"-74.824990","estado":"1","observacion":"SAO DE LA 93","abreviatura":"AUTO","codegps":"51","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"71","nombre":"CALLE 30 CON 38","latitud":"10.97623","longuitud":"-74.777350","estado":"1","observacion":"CALLE 30 CON 38","abreviatura":"338","codegps":"33","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"72","nombre":"ALAMEDA","latitud":"10.997929421474456","longuitud":"-74.84089009485615","estado":"1","observacion":"ALAMEDA","abreviatura":"ALA","codegps":"52","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"73","nombre":"ALAMEDA","latitud":"10.997929421","longuitud":"-74.840890094","estado":"1","observacion":"ALAMEDA","abreviatura":"ALA","codegps":"40","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"74","nombre":"HOTEL DEL PRADO","latitud":"10.997929421","longuitud":"-74.840890094","estado":"1","observacion":"HOTEL DEL PRADO","abreviatura":"PRA","codegps":"53","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"75","nombre":"HOTEL DEL PRADO","latitud":"10.997929421474456","longuitud":"-74.84089009485615","estado":"1","observacion":"HOTEL DEL PRADO","abreviatura":"PRA","codegps":"53","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"77","nombre":"MURILLO-KRA 8","latitud":"10.946146824465364","longuitud":"-74.79973800698875","estado":"1","observacion":"MURILLO-KRA 8","abreviatura":"KR8M","codegps":"57","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"78","nombre":"UNICO","latitud":"10.989971319840475","longuitud":"-74.8112088687027","estado":"1","observacion":"UNICO","abreviatura":"UNIC","codegps":"58","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"79","nombre":"TROJA","latitud":"10.993806513434997","longuitud":"-74.80881019619578","estado":"1","observacion":"TROJA","abreviatura":"TROJ","codegps":"59","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"80","nombre":"PORTAL PRADO","latitud":"10.989782943868537","longuitud":"-74.78930120094645","estado":"1","observacion":"PORTAL PRADO","abreviatura":"PORT","codegps":"56","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"81","nombre":"CALANCALA","latitud":"10.974229758","longuitud":"-74.792565893","estado":"1","observacion":"CALANCALA","abreviatura":"CALA","codegps":"60","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"82","nombre":"UNI ATALANTICO","latitud":"11.020213780506278","longuitud":"-74.87141325053817","estado":"1","observacion":"UNI ATLANTICO","abreviatura":"ATLA","codegps":"54","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"83","nombre":"ARGOS","latitud":"10.914026734","longuitud":"-74.776950579","estado":"1","observacion":"ARGOS","abreviatura":"ARGO","codegps":"55","control":"1","base":"0","idtipogps":"324","nombreGps":"OPTOCONTROL","idGps":"324"},{"id":"84","nombre":"HOTEL DEL PRADO","latitud":"10.997929421","longuitud":"-74.840890094","estado":"1","observacion":"HOTEL DEL PRADO","abreviatura":"PRA","codegps":"41","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"85","nombre":"MURILLO-KRA 8","latitud":"10.946146824","longuitud":"-74.799738006","estado":"1","observacion":"MURILLO-KRA 8","abreviatura":"KR8M","codegps":"42","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"86","nombre":"UNICO","latitud":"10.989971319","longuitud":"-74.811208868","estado":"1","observacion":"UNICO","abreviatura":"UNIC","codegps":"43","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"87","nombre":"TROJA","latitud":"10.993806513","longuitud":"-74.808810196","estado":"1","observacion":"TROJA","abreviatura":"TROJ","codegps":"44","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"88","nombre":"PORTAL PRADO","latitud":"10.989782943","longuitud":"-74.789301200","estado":"1","observacion":"PORTAL PRADO","abreviatura":"PORT","codegps":"45","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"89","nombre":"CALANCALA","latitud":"10.974229758","longuitud":"-74.792565893","estado":"1","observacion":"CALANCALA","abreviatura":"CALA","codegps":"46","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"90","nombre":"UNI ATLANTICO","latitud":"11.020213780","longuitud":"-74.871413250","estado":"1","observacion":"UNI ATLANTICO","abreviatura":"ATLA","codegps":"47","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"},{"id":"91","nombre":"ARGOS","latitud":"10.914026734","longuitud":"-74.776950579","estado":"1","observacion":"ARGOS","abreviatura":"ARGO","codegps":"48","control":"1","base":"0","idtipogps":"323","nombreGps":"CELLOCATOR","idGps":"323"}]};       
         if (response.resultado) {
@@ -69,7 +70,7 @@ $(function () {
             toastr.error("OcurriÃ³ un error: " + response.message);
         }
     }
-
+*/
     function limpiarMarkers() {
         $.each(markers, function (index, i) {
             markers[index].setMap(null);
@@ -268,16 +269,7 @@ $(function () {
             easing: "linear",
             duration: 6000,
         });
-
-        enRuta = true;
-        $.each(kmlRutas, function(index, kml) {
-            enRuta = google.maps.geometry.poly.isLocationOnEdge(new google.maps.LatLng(lat, longi),  kml.polilinea, 0.001);    
-            if(enRuta){
-                return false;
-            }
-        });
-        
-        marker.setIcon(imagenRumbo(rumbo, idEvento, enRuta, idRuta, velocidad));
+        marker.setIcon(imagenRumbo(rumbo, idEvento, true, idRuta, velocidad));
     }
 
     var rad = function(x) {
@@ -308,16 +300,8 @@ $(function () {
         marker.subidas = subidas;
         marker.bajadas = bajadas;
 
-        enRuta = true;
-        $.each(kmlRutas, function(index, kml) {
-            enRuta= google.maps.geometry.poly.isLocationOnEdge(new google.maps.LatLng(latFormat, longFormat),  kml.polilinea, 0.001);    
-            if(enRuta){
-                return false;
-            }
-        });
-        
         if(getDistance(latAnterior, longAnterior, latFormat, longFormat)>1){
-            marker.setIcon(imagenRumbo(Math.round(getRumbo(latAnterior, longAnterior, latFormat, longFormat)), evento, enRuta, "", velocidad));
+            marker.setIcon(imagenRumbo(Math.round(getRumbo(latAnterior, longAnterior, latFormat, longFormat)), evento, true, "", velocidad));
         }
 
         marker.setPosition(new google.maps.LatLng(latFormat, longFormat));
@@ -556,32 +540,6 @@ $(function () {
         moverMarkerRecorrido();
     });
 
-    $("#btnCerrarLateral").click(function () {
-        if (panelLateralCerrado) {
-            abrirPanelLateral();
-        } else {
-            cerrarPanelLateral();
-        }
-    });
-
-    $(document).off('click', "input[data-idruta]");
-
-    $(document).on("click", "input[data-idruta]", function (e) {
-        var idRuta = $(this).data("idruta")
-        if ($(this).is(":checked")) {
-            kmlRutas[idRuta].layer.setMap(map);
-            mostrarMarkersPorRuta(idRuta);
-        } else {
-            kmlRutas[idRuta].layer.setMap(null);
-            ocultarMarkersPorRuta(idRuta);
-        }
-        $("#modalConfiguracion").modal('hide');
-    });
-
-    $("#btnOpciones").click(function () {
-        $("#modalConfiguracion").modal();
-    });
-
     $("#btnRecorrido").click(function () {
         $("#modalRecorrido").modal();
     });
@@ -675,20 +633,20 @@ $(function () {
         socket2.onmessage = function(msg){
             if (pendienteLoad2 == false) {
                 $.each(JSON.parse(msg.data), function (i, item) {
-                    //if(misVehiculo.indexOf(item.PLACA) != -1){
+                    if(misVehiculo.indexOf(parseInt(item.codigo)) != -1){
                         createMarker2(item.Latitude, item.longitude, item.codigo, "", item.VelocidadKPH, item.FechaHora, 
                         item.placa, item.IDEvento, item.idRuta, parseInt(item.ABORDO), parseInt(item.SUBIDAS), 
                         parseInt(item.BAJADAS));    
-                    //}
+                    }
                 });
                 pendienteLoad2 = true;
             }else{
                 $.each(JSON.parse(msg.data), function (i, item) {
-                    //if(misVehiculo.indexOf(item.PLACA) != -1){
+                    if(misVehiculo.indexOf(parseInt(item.codigo)) != -1){
                         refreshMarker2(markers[item.codigo], item.Latitude, item.longitude, "", item.IDEvento, item.codigo, 
                         item.idRuta, parseInt(item.VelocidadKPH), true, parseInt(item.ABORDO), parseInt(item.SUBIDAS), 
                         parseInt(item.BAJADAS));
-                    //}
+                    }
                 });
             }
         }

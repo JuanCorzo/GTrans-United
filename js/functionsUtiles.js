@@ -14,7 +14,9 @@ var aggregatesRender = function (aggregates) {
 
 if ($(window).width() <= 530) {  
 	var canvas = document.getElementsByClassName("chartResize");  
-  	canvas[0].height = 90;
+    if(canvas.length > 0) {
+        canvas[0].height = 150;
+    }
 }     
 
 function dateNow() {

@@ -25,12 +25,16 @@ $(function() {
 			    cargarVistaIframe("excesosVelocidad.html");
 			    break;
 			case "MenuViajes":
-			    cargarVistaIframe("viajes.html");
+				Swal.fire({title: "Opcion en construccion", icon: "warning"});
+			    // cargarVistaIframe("viajes.html");
 			    break;
 			case "MenuGraficas":
-			    cargarVistaIframe("grafica.html");
+				Swal.fire({title: "Opcion en construccion", icon: "warning"});
+			    // cargarVistaIframe("grafica.html");
 			    break;
 		}
+
+		$("#sidebarToggle").click();
 	});
 
 	function cargarVistaIframe(contenido){

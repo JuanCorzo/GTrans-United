@@ -1,5 +1,8 @@
 $(function() {
 
+    toastr.info("OPCION PENDIENTE POR REVISION");
+
+
     var map;
     var LatandLong = {lat: parseFloat(10.9738178), lng: parseFloat(-74.7939255)};
 
