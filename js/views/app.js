@@ -1,19 +1,29 @@
 $(function() {
    	
-	let dataUser = JSON.parse(localStorage.getItem('userData'));
+	if(localStorage.getItem('userData') == null || localStorage.getItem('token') == null){
+		cerrarSesion();
+	}
+
+	const dataUser = JSON.parse(localStorage.getItem('userData'));
+
+	toast.success("Bienvenido Sr(a) " + dataUser.personalCorto);
 
     $('#lblpropietario').text(dataUser.personalCorto);
 
-
-	$("#btnCerrarSesion").click(function(){																	
-		$(location).attr('href','../index.html');
-		localStorage.removeItem('token');					
+	$("#btnCerrarSesion").click(function(){
+		cerrarSesion();
 	});
-
  	
+ 	
+ 	// FAST CLICK (300 ms)
+ 	FastClick.attach(document.body);
+
+
 	// FUNCIONES MENU
 	$(document).on('click','.MenuLink',function(){
-	
+		
+		$("#sidebarToggle").click();
+			
 		switch($(this).data('id')) {
 			case "MenuDashboard":
 			    cargarVistaIframe("dashboard.html");
@@ -25,21 +35,27 @@ $(function() {
 			    cargarVistaIframe("excesosVelocidad.html");
 			    break;
 			case "MenuViajes":
-				Swal.fire({title: "Opcion en construccion", icon: "warning"});
+				swal.question("Opcion en construccion");
 			    // cargarVistaIframe("viajes.html");
 			    break;
 			case "MenuGraficas":
-				Swal.fire({title: "Opcion en construccion", icon: "warning"});
+				swal.question("Opcion en construccion");
 			    // cargarVistaIframe("grafica.html");
 			    break;
 		}
 
-		$("#sidebarToggle").click();
 	});
 
 	function cargarVistaIframe(contenido){
 		$("#divIframe").html("<iframe src="+contenido+" class='width100porciento height100porciento' frameborder='0' vspace='0' hspace='0' marginwidth='0' marginheight='0'/></iframe>");
 	}
+
+	function cerrarSesion(){
+		localStorage.removeItem('token');
+		localStorage.removeItem('userData');
+		$(location).attr('href','../index.html');
+	}
+
 
 
 });

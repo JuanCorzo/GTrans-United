@@ -1,5 +1,8 @@
 $(function () {
 
+    const dataUser = JSON.parse(localStorage.getItem('userData'));
+
+    
     var LatandLong;
     var zoom;
     var map;
@@ -20,6 +23,13 @@ $(function () {
     var recorriendo = false;
     var fullScreen = false;
     var misVehiculo = [510, 730, 536, 616, 812];
+
+    $('#inpFechaConsolidado').val(dateNow());
+    $('#inpFechaDetalle').val(dateNow());
+    $('#inpFechaRecorrido').val(dateNow());
+    $('#inpHoraInicialRecorrido').val(timeNow());
+    $('#inpHoraFinalRecorrido').val(timeNow());
+
     // ---------------------------
 /*
     $.ajax({
@@ -49,7 +59,7 @@ $(function () {
     });
 
     function cargarRutas() {
-        let data = {"resultado":true,"data":[{"id":"3","nombre":"D - 7 ECOLOGICA - CALLE 17","nombreRL":"CALLE 17","estado":"1","idCliente":"1","Vueltas":"3","maxintercalar":"25","color":"#ffff80","kml":null,"kmlPHP":"D-7C17","guid":"F7CC32E1-C995-45B0-A96C-C2DAECB4FD87","tiempo":null,"hora_despacho_maximo":"20:30:00","limit_bono":"320","limit_bono_f":"260","minTimbradasLogicas":"30","rutaKml":"http:\/\/anubis.lmsoluciones.co\/gema_lacarolina\/assets\/uploads\/kml\/D-7C17.kml"},{"id":"4","nombre":"D - 6 ECOLOGICA - CALLE 30","nombreRL":"CALLE 30","estado":"1","idCliente":"1","Vueltas":"3","maxintercalar":"25","color":"#008000","kml":null,"kmlPHP":"--CLL30","guid":"24612C68-8A1D-4D7F-8198-1A8640F915B8","tiempo":null,"hora_despacho_maximo":"20:30:00","limit_bono":"320","limit_bono_f":"260","minTimbradasLogicas":"30","rutaKml":"http:\/\/anubis.lmsoluciones.co\/gema_lacarolina\/assets\/uploads\/kml\/--CLL30.kml"},{"id":"6","nombre":"A - 16 MIRAMAR","nombreRL":"MIRAMAR","estado":"1","idCliente":"1","Vueltas":"4","maxintercalar":"25","color":"#0080ff","kml":null,"kmlPHP":"Miramar43","guid":"2FA3F145-BCA5-478F-A8C0-D355BC25A9A2","tiempo":null,"hora_despacho_maximo":"20:30:00","limit_bono":"400","limit_bono_f":"350","minTimbradasLogicas":"30","rutaKml":"http:\/\/anubis.lmsoluciones.co\/gema_lacarolina\/assets\/uploads\/kml\/Miramar43.kml"},{"id":"7","nombre":"A -- 16 MIRAMAR","nombreRL":"EXPRESS","estado":"1","idCliente":"1","Vueltas":"5","maxintercalar":"25","color":"#ff0000","kml":null,"kmlPHP":"--EXP","guid":"9BB50A77-AB0C-4C6E-8122-404C67F0D66C","tiempo":null,"hora_despacho_maximo":"21:00:00","limit_bono":"320","limit_bono_f":"250","minTimbradasLogicas":"30","rutaKml":"http:\/\/anubis.lmsoluciones.co\/gema_lacarolina\/assets\/uploads\/kml\/--EXP.kml"}]};
+        let data = {"resultado":true,"data":[{"id":"4","nombre":"D - 6 ECOLOGICA - CALLE 30","nombreRL":"CALLE 30","estado":"1","idCliente":"1","Vueltas":"3","maxintercalar":"25","color":"#008000","kml":null,"kmlPHP":"--CLL30","guid":"24612C68-8A1D-4D7F-8198-1A8640F915B8","tiempo":null,"hora_despacho_maximo":"20:30:00","limit_bono":"320","limit_bono_f":"260","minTimbradasLogicas":"30","rutaKml":"http:\/\/anubis.lmsoluciones.co\/gema_lacarolina\/assets\/uploads\/kml\/--CLL30.kml"},{"id":"6","nombre":"A - 16 MIRAMAR","nombreRL":"MIRAMAR","estado":"1","idCliente":"1","Vueltas":"4","maxintercalar":"25","color":"#0080ff","kml":null,"kmlPHP":"Miramar43","guid":"2FA3F145-BCA5-478F-A8C0-D355BC25A9A2","tiempo":null,"hora_despacho_maximo":"20:30:00","limit_bono":"400","limit_bono_f":"350","minTimbradasLogicas":"30","rutaKml":"http:\/\/anubis.lmsoluciones.co\/gema_lacarolina\/assets\/uploads\/kml\/Miramar43.kml"}]};
         $.each(data.data, function (index, value) {
             new google.maps.KmlLayer(value["rutaKml"], {
               suppressInfoWindows: true,
@@ -238,7 +248,10 @@ $(function () {
             bajadas: bajadas
         });
         google.maps.event.addListener(marker, 'click', function () {
-            
+           /* getDataVehiculo(codigo);
+            AjaxDatosGrillaConsolidado(codigo);
+            AjaxDatosGrillaDetalle(codigo);*/
+            $("#modalDetalle").modal();
         })
         markers[codigo] = markers[codigo] || marker;
     }
@@ -355,60 +368,144 @@ $(function () {
         });
     }
 
-    function AjaxDatosGrillaViajesRecorridos(codigo, fecha) {
+    function AjaxDatosGrillaConsolidado(codigo) {
+        $("#lblTotTimConsolidado").text("Timbs: -");
+        $("#lblTotBloqConsolidado").text("Bloqs: -");
         $.ajax({
-            url: "http://anubis.lmsoluciones.co/gema_lacarolina/index.php/c_tracking/getListViajesVehiculoByFecha",
+            url: "jsnGetConsolidadoMovilidadMapa",
             type: "POST",
             dataType: "JSON",
-            data: {codigo: codigo, fecha: fecha},
+            data: {codigo: codigo, fecha: $("#inpFechaConsolidado").val()},
             success: function (response) {
-                if (response.resultado) {
-                    var datos = response.data;
-                    llenarGrillaViajesRecorridos(datos);
-                    toastr.info("Doble Click en la grilla para cargar el recorrido");
-                } else {
-                    toastr.error("OcurriÃ³ un error: " + response.message);
-                }
+                var rtn = [];
+                let timbs = 0;
+                let bloqs = 0;
+                $.each(response, function(key, value) {
+                    timbs += value.pasajeros_automatico;
+                    bloqs += value.BLOQUEOS;
+                    rtn.push({val:[{fecha: value.FECHA_HORA_FINAL, tim: value.pasajeros_automatico, bloqueos: value.BLOQUEOS}]});
+                });
+                $("#lblTotTimConsolidado").text("Timbs: " + timbs);
+                $("#lblTotBloqConsolidado").text("Bloqs: " + bloqs);
+                crearGrillaConsolidado(rtn);
                 return false;
             },
             error: function (xhr) {
-                toastr.error("Error al cargar los viajes");
                 return false;
             }
         });
+    }  
+
+    function AjaxDatosGrillaDetalle(codigo) {
+        $("#lblTotSubDetalle").text("Sub.: -");
+        $("#lblTotBajDetalle").text("Baj.: -");
+        $("#lblTotBloqDetalle").text("Bloqs: -");
+        $.ajax({
+            url: "jsnGetDetalleMovilidadMapa",
+            type: "POST",
+            dataType: "JSON",
+            data: {codigo: codigo, fecha: $("#inpFechaDetalle").val()},
+            success: function (response) {
+                var rtn = [];
+                let subs = 0;
+                let bajs = 0;
+                let bloqs = 0;
+                $.each(response, function(key, value) {
+                    subs += value.SUBIDAS;
+                    bajs += value.BAJADAS;
+                    bloqs += value.BLOQUEOS;
+                    rtn.push({val:[{fecha: value.FECHA_HORA, subs: value.SUBIDAS, bajas: value.BAJADAS, bloqueos: value.BLOQUEOS}]});
+                });
+                $("#lblTotSubDetalle").text("Sub.: " + subs);
+                $("#lblTotBajDetalle").text("Baj.: " + bajs);
+                $("#lblTotBloqDetalle").text("Bloqs: " + bloqs);
+                crearGrillaDetalle(rtn);
+                return false;
+            },
+            error: function (xhr) {
+                return false;
+            }
+        });
+    }  
+
+    function crearGrillaConsolidado(datos){
+        var source = {
+            localData: datos,
+            dataType: "array"
+        };
+        dataAdapter = new $.jqx.dataAdapter(source); 
+        $("#gridConsolidados").jqxDataTable({
+            width: '99.5%',
+            theme: 'material', 
+            source: dataAdapter,
+            sortable: false,
+            pageable: true,
+            pageSize: 20,
+            pagerButtonsCount: 5,
+            enableHover: false,
+            selectionMode: 'none',
+            columns: [
+                  {
+                      text: 'Ventas', align: 'left', dataField: 'model',
+                      cellsRenderer: function (row, column, value, rowData) {
+                          var punto = rowData.val;
+                          var container = "<div>";
+                          for (var i = 0; i < punto.length; i++) {
+                              var punto = punto[i];
+                              var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
+                              var info = "<div style='background: #E9ECEF; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-style: italic; font-size: 15px'>";
+                              info += "<div class='row'><div class='col-12 col-sm-6'>Fecha: "+punto.fecha+"</div><div class='col-6 col-sm-3'>Timbs: "+punto.tim+"</div><div class='col-6 col-sm-3' style='background: white; color: #039be5; font-weight: bold; border-radius: 7pt 0pt 0pt 7pt;'>Bloqs: "+punto.bloqueos+"</div></div>";
+                              info += "</div>";
+                              item += info;
+                              item += "</div>";
+                              container += item;
+                          }
+                          container += "</div>";
+                          return container;
+                      }
+                  }
+            ]
+        });       
     }
 
-    function llenarGrillaViajesRecorridos(datos) {
-        var source =
-                {
-                    localdata: datos,
-                    datafields:
-                            [
-                                {name: 'viaje', type: 'string'},
-                                {name: 'salida', type: 'string'},
-                                {name: 'llegada', type: 'string'},
-                            ],
-                    datatype: "array"
-                };
-        var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#gridViajesRecorridos").jqxDataTable(
-                {
-                    width: '100%',
-                    height: '200px',
-                    source: dataAdapter,
-                    pageable: false,
-                    theme: "metro",
-                    filterable: true,
-                    filterMode: "advanced",
-                    selectionMode: 'singleRow',
-                    sortable: true,
-                    columns: [
-                        {text: 'Viaje', datafield: 'viaje', width: 100},
-                        {text: 'Salida', datafield: 'salida', minwidth: 150},
-                        {text: 'Llegada', datafield: 'llegada', minwidth: 150},
-                    ]
-                });
-        $('#gridViajesRecorridos').jqxGrid('render');
+    function crearGrillaDetalle(datos){
+        var source = {
+            localData: datos,
+            dataType: "array"
+        };
+        dataAdapter = new $.jqx.dataAdapter(source); 
+        $("#gridDetalle").jqxDataTable({
+            width: '99.5%',
+            theme: 'material', 
+            source: dataAdapter,
+            sortable: false,
+            pageable: true,
+            pageSize: 20,
+            pagerButtonsCount: 5,
+            enableHover: false,
+            selectionMode: 'none',
+            columns: [
+                  {
+                      text: 'Ventas', align: 'left', dataField: 'model',
+                      cellsRenderer: function (row, column, value, rowData) {
+                          var punto = rowData.val;
+                          var container = "<div>";
+                          for (var i = 0; i < punto.length; i++) {
+                              var punto = punto[i];
+                              var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
+                              var info = "<div style='background: #E9ECEF; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-style: italic; font-size: 15px'>";
+                              info += "<div class='row'><div class='col-12 textCenter' style='background: white; color: #039be5; font-weight: bold;'>"+punto.fecha+"</div><div class='col-4 textCenter'>Subs.: "+punto.subs+"</div><div class='col-4 textCenter'>Bajs.: "+punto.bajas+"</div><div class='col-4 textCenter'>Bloqs: "+punto.bloqueos+"</div></div>";
+                              info += "</div>";
+                              item += info;
+                              item += "</div>";
+                              container += item;
+                          }
+                          container += "</div>";
+                          return container;
+                      }
+                  }
+            ]
+        });       
     }
 
     function limpiarRecorrido() {
@@ -564,7 +661,10 @@ $(function () {
         }
     });
 
-    $("#inpCargarRecorrido").click(function () {
+    $("#btnCargarRecorrido").click(function () {
+        toast.question("OPCION EN DESARROLLO");
+        return false;
+
         if ($("#inpVehiculoRecorrido").val() == "") {
             toastr.error("Debe digitar un vehiculo");
             return false;

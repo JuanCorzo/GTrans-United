@@ -1,10 +1,12 @@
 $(function() {
 
+  const dataUser = JSON.parse(localStorage.getItem('userData'));
+
+
+
   Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
   Chart.defaults.global.defaultFontColor = '#292b2c';
 
-
-  let dataUser = JSON.parse(localStorage.getItem('userData'));
 
   function getSumTimbradas() {
       $.ajax({
@@ -66,7 +68,6 @@ $(function() {
       });
   }
 
-
   $("#divAlarmasB").text("258 Total Timbradas");
 
   $("#divAlarmasC").text("6  Novedades viajes");
@@ -74,6 +75,6 @@ $(function() {
   getSumTimbradas();
 
 
-
+  
 
 });

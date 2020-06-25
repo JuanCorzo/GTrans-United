@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
 
     <title>Mapa</title>
 
@@ -15,42 +14,80 @@
 
     <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
     <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
-  
-  <style>
-    .labels {
-        color: red;
-        background-color: white;
-        font-family: "Lucida Grande", "Arial", sans-serif;
-        font-size: 11px;
-        font-weight: bold;
-        text-align: center;
-        width: 50px;
-        border: 2px solid black;
-        white-space: nowrap;
-        border-radius: 10pt;
-        margin-left: -25px !important;
+
+    <style type="text/css">
+
+      #btnFloatVehiculo{
+          position: absolute; 
+          top: 15px; 
+          left: 10px; 
+          z-index: 100;
+          display: flex;
       }
-  </style>
-  
+
+      #btnFloatVehiculo input{
+          color: black; 
+          font-size: 15px; 
+          width: 110px;
+      }
+
+      #btnFloatVehiculo button{
+          padding: 6px;
+          margin-left: 10px;
+      }
+
+      #btnsFlotantes{
+          position: absolute;
+          top: 60px;
+          left: 10px;  
+          width: 44px;
+      }
+
+      #btnsFlotantes button{
+          margin-top: 7px;
+          padding-top: 7px;
+      }
+
+      #btnsFlotantesRecorridos{
+          position: absolute;
+          bottom: 43px;
+          left: 11px;  
+      }
+
+    </style>
+
   </head>
 
   <body id="page-top">
 
-    <input id="inpVehiculo" type="text" class="form-control input-sm btnFloatMap z-index200 borderRadius7pt" style="color:black; font-size: 15px; width: 110px;" placeholder="Vehiculo"/> 
-    <button id="btnBusqueda" type="button" class='btn-floating btn btn-default btn-sm btnFloatMap paddingLaterales12px backgroundBlue z-index200 borderRadius7pt' style="left: 130px; float:left; color:white; padding: 7px;">Buscar</button>  
+    <div id="btnFloatVehiculo">
+        <input id="inpVehiculo" type="text" class="form-control input-sm borderRadius7pt" placeholder="Vehiculo"/> 
+        <button id="btnBusqueda" type="button" class='btn-floating btn btn-default btn-sm paddingLaterales12px backgroundBlue borderRadius7pt colorWhite'>Buscar</button>
+    </div>
 
     <div id="googleMap" style="width:100%;height:100vh;"></div>
 
+    <div id="btnsFlotantes">
+        <button id="btnRefrecar" title="Refrescar Vehiculos" class="btn btn-circle btn-dark borderNone"><i class="fas fa-sync-alt fontSize15px colorWhite"></i></button>
+        <button id="btnRecorrido" title="Recorridos" class="btn btn-circle btn-dark borderNone"><i class="fas fa-history fontSize15px colorWhite"></i></button>
+    </div>
 
-    <!-- DETALLE -->
+    <div id="btnsFlotantesRecorridos" class="displayNone">
+        <button id="btnFirst" title="Inicio" class="btn btn-dark borderNone"><i class="fa fa-step-backward fontSize13px"></i></button>
+        <button id="btnBack" title="Retroceder" class="btn btn-dark borderNone"><i class="fa fa-backward fontSize13px"></i></button>
+        <button id="btnPause" title="Iniciar/Pausar" class="btn btn-circle btn-dark borderNone"><i class="fa fa-play fontSize16px"></i></button>
+        <button id="btnNext" title="Adelantar" class="btn btn-dark borderNone"><i class="fa fa-forward fontSize13px"></i></button>
+        <button id="btnLast" title="Fin" class="btn btn-dark borderNone"><i class="fa fa-step-forward fontSize13px"></i></button>
+    </div>
+
+    <!--  ----------------------------------- -->
+
+    <!-- MODAL DETALLE -->
     <div class="modal" tabindex="-1" role="dialog" id="modalDetalle">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Detalles del vehiculo <span id="spanVehiculo"></span></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <h5 class="modal-title width100porciento textCenter">Detalles del vehiculo <span id="spanVehiculo"></span></h5>
             </div>
             <div class="modal-body" style="padding-top: 7px;">
 
@@ -116,13 +153,10 @@
                 <div class="tab-pane fade" id="tabConsolidado">
 
                   <div class="row marginTop10px">
-                      <div class="d-none d-sm-block col-sm-3">
-                          <label class="labelStyle">Fecha:</label>
-                      </div>
-                      <div class="col-7 col-sm-6">
+                      <div class="col-7">
                           <input type="date" name="inpFechaConsolidado" id="inpFechaConsolidado" class="form-control input-sm inputSmall">
                       </div>
-                      <div class="col-5 col-sm-3">
+                      <div class="col-5">
                           <button type="button" id="btnCargarConsolidado" class="btn btn-primary inputSmall width100porciento">Cargar</button>
                       </div>
                   </div>
@@ -148,13 +182,10 @@
                 </div>
                 <div class="tab-pane fade" id="tabDetalle">
                     <div class="row marginTop10px">
-                        <div class="d-none d-sm-block col-sm-3">
-                            <label class="labelStyle">Fecha:</label>
-                        </div>
-                        <div class="col-7 col-sm-6">
+                        <div class="col-7">
                             <input type="date" name="inpFechaDetalle" id="inpFechaDetalle" class="form-control input-sm inputSmall">
                         </div>
-                        <div class="col-5 col-sm-3">
+                        <div class="col-5">
                             <button type="button" id="btnCargarDetalle" class="btn btn-primary inputSmall width100porciento">Cargar</button>
                         </div>
                     </div>
@@ -171,7 +202,7 @@
                               <label id="lblTotBajDetalle" class="labelStyle">Baj.: -</label>
                           </div>
                           <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
-                              <label id="lblTotBloqDetalle" class="labelStyle">Bloqs: -</label>
+                              <label id="lblTotBloqDetalle" class="labelStyle">Bloq: -</label>
                           </div>
                       </div>                  
                     </div>
@@ -184,12 +215,66 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
       </div>
     </div>
 
+    <!--  ----------------------------------- -->
+
+    <!-- MODAL RECORRIDO -->
+    <div class="modal" id="modalRecorrido" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title width100porciento textCenter">Generador de Recorridos</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-5"> 
+                            <label class="labelStyle">Vehiculo:</label>
+                            <input type="text" id="inpVehiculoRecorrido" class="form-control input-sm inputSmall text-center" onKeyUp="this.value = this.value.toUpperCase()">
+                        </div>
+                        <div class="col-7"> 
+                            <label class="labelStyle">Fecha:</label>
+                            <input type="date" id="inpFechaRecorrido" class="form-control input-sm inputSmall">
+                        </div>
+                    </div>
+                    <div class="row marginTop10px">
+                        <div class="col-6"> 
+                            <label class="labelStyle">Hora Inicial:</label>
+                            <input type="time" id="inpHoraInicialRecorrido" class="form-control input-sm inputSmall">
+                        </div>
+                        <div class="col-6">
+                            <label class="labelStyle">Hora Final:</label>
+                            <input type="time" id="inpHoraFinalRecorrido" class="form-control input-sm inputSmall">
+                        </div>
+                    </div>
+                    <div class="row marginTop15px">
+                        <div class="col-4"> 
+                            <label class="labelStyle"><input type="checkbox" id="verPasajeros"> Pasajeros</label>
+                        </div>
+                        <div class="col-8 displayFlex"> 
+                            <label class="labelStyle" style="padding-top: 3px"><input type="checkbox" id="verExcesosVelocidad"> Exc. Velo. </label> 
+                            <div class="input-group" style="width: auto; margin-left: 11px">
+                              <input type="number" name="inplimiteExcesoVelocidad" id="inplimiteExcesoVelocidad" value="40" class="form-control input-sm inputSmall" style="max-width: 50px; height: 30px">
+                              <div class="input-group-append inputSmallSinPad">
+                                <span class="input-group-text backgroundWhite fontSize13px">Km/H</span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnCargarRecorrido">Cargar Recorrido</button>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <!--  ----------------------------------- -->
 
 
     <script src="../libs/jquery.js"></script>
@@ -202,7 +287,6 @@
     
     <script src="../js/scripts.js"></script>
     <script src="../js/functionsUtiles.js"></script>
-    <script src="../js/views/app.js"></script>
     <script src="../js/views/mapa.js"></script>
 
   </body>

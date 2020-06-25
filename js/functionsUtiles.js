@@ -1,6 +1,9 @@
 
-
 var urlAPI = "http://192.190.42.212:3000";
+
+
+
+
 
 
 var aggregatesRender = function (aggregates) {
@@ -27,6 +30,14 @@ function dateNow() {
     return today;
 }
 
+function timeNow() {
+    var now = new Date();
+    var hours = (now.getHours() < 10 ? '0' : '') + now.getHours();
+    var minutes = (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+    var time = hours + ':' + minutes;
+    return time;
+}
+
 function imagenRumbo(rumbo, idEvento, enruta, ruta, velocidad) {
     var url = '../images/markers/';
     var imagen = "";
@@ -39,39 +50,23 @@ function imagenRumbo(rumbo, idEvento, enruta, ruta, velocidad) {
     if(velocidad == 0){
         return  url + 'otros/pausado.svg';
     }
-    if (enruta) {
-        if (idEvento == 1) {
-            return  url + 'otros/pausado.svg';
-        } else if (rumbo > 315 || (rumbo >= 0 && rumbo <= 45))
-        {
-            imagen = url + 'SinRuta/1.svg';
-        } else if (rumbo > 45 && rumbo <= 135)
-        {
-            imagen = url + 'SinRuta/3.svg';
-        } else if (rumbo > 135 && rumbo <= 225)
-        {
-            imagen = url + 'SinRuta/2.svg';
-        } else if (rumbo > 225 && rumbo <= 315)
-        {
-            imagen = url + 'SinRuta/4.svg';
-        }
-    } else {
-        if (idEvento == 1) {
-            return  url + 'otros/pausado.svg';
-        } else if (rumbo > 315 || (rumbo >= 0 && rumbo <= 45))
-        {
-            imagen = url + 'FueraDeRuta/1f.svg';
-        } else if (rumbo > 45 && rumbo <= 135)
-        {
-            imagen = url + 'FueraDeRuta/3f.svg';
-        } else if (rumbo > 135 && rumbo <= 225)
-        {
-            imagen = url + 'FueraDeRuta/2f.svg';
-        } else if (rumbo > 225 && rumbo <= 315)
-        {
-            imagen = url + 'FueraDeRuta/4f.svg';
-        }
+
+    if (idEvento == 1) {
+        return  url + 'otros/pausado.svg';
+    } else if (rumbo > 315 || (rumbo >= 0 && rumbo <= 45))
+    {
+        imagen = url + 'SinRuta/1.svg';
+    } else if (rumbo > 45 && rumbo <= 135)
+    {
+        imagen = url + 'SinRuta/3.svg';
+    } else if (rumbo > 135 && rumbo <= 225)
+    {
+        imagen = url + 'SinRuta/2.svg';
+    } else if (rumbo > 225 && rumbo <= 315)
+    {
+        imagen = url + 'SinRuta/4.svg';
     }
+
     return imagen;
 }
 
@@ -92,3 +87,54 @@ function CoordenadasKml(kml) {
     });
     return flightPath
 }
+
+/* ALERTAS Y MENSAJES */
+
+var toast = {
+    type: null,
+    success: function(msg) {
+        this.type = "success";
+        this.launch(msg);
+    },
+    error : function(msg) {
+        this.type = "error";
+        this.launch(msg);
+    }, 
+    question : function(msg) {
+        this.type = "question";
+        this.launch(msg);
+    }, 
+    warning : function(msg) {
+        this.type = "warning";
+        this.launch(msg);
+    },
+    launch: function(msg){
+        Swal.fire({title: msg, icon: this.type, toast: true, position: "top-end", 
+                    timer: 3000, timerProgressBar: true, showConfirmButton: false,
+        });
+    }
+}
+
+var swal = {
+    type: null,
+    success: function(msg, title = "Perfecto!") {
+        this.type = "success";
+        this.launch(msg, title);
+    },
+    error : function(msg, title = "Oops...") {
+        this.type = "error";
+        this.launch(msg, title);
+    }, 
+    question : function(msg, title = "Informacion") {
+        this.type = "question";
+        this.launch(msg, title);
+    }, 
+    warning : function(msg, title = "Cuidado!") {
+        this.type = "warning";
+        this.launch(msg, title);
+    },
+    launch: function(msg, title){
+        Swal.fire({title: title, text: msg, icon: this.type, width: "15em"});
+    }
+}
+

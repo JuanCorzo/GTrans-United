@@ -1,6 +1,9 @@
 $(function() {
 
-    toastr.info("OPCION PENDIENTE POR REVISION");
+    const dataUser = JSON.parse(localStorage.getItem('userData'));
+
+
+    toast.question("OPCION PENDIENTE POR REVISION");
 
 
     var map;
@@ -24,8 +27,6 @@ $(function() {
     });
 
     $('#inpFecha').val(dateNow());
-
-    let dataUser = JSON.parse(localStorage.getItem('userData'));
 
     $.ajax({
         url: "http://192.190.42.212:3000/vehiculos/getVehiculos/"+dataUser.idPropietario,
