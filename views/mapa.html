@@ -17,6 +17,17 @@
 
     <style type="text/css">
 
+      .labelMarker{
+          background: white;
+          color: black;
+          text-align: center;
+          border: 1px solid black;
+          padding: 1px 8px;
+          font-weight: 500;
+          font-size: 12px;
+          border-radius: 3pt;
+      }
+
       #btnFloatVehiculo{
           position: absolute; 
           top: 15px; 
@@ -118,24 +129,28 @@
                         </div>
                     </div>
                     <div class="row marginTop5px">
-                        <div class="col-12 col-sm-5">
+                        <div class="col-12">
+                            <label class="labelStyle">Ruta:</label>
+                            <input type="text" name="inpRuta" id="inpRuta" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                        </div>
+                        <div class="col-7">
+                            <label class="labelStyle">Ultimo Dato:</label>
+                            <input type="text" name="inpUltimoDato" id="inpUltimoDato" class="form-control input-sm inputSmall inpDatosVehiculoTracking" readonly>
+                        </div>
+                        <div class="col-5">
                             <label class="labelStyle">Velocidad:</label>
                             <div class="input-group">
-                              <input type="text" name="inpVelocidad" id="inpVelocidad" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                              <input type="text" name="inpVelocidad" id="inpVelocidad" class="form-control input-sm inputSmall inpDatosVehiculoTracking" readonly>
                               <div class="input-group-append inputSmallSinPad">
                                 <span class="input-group-text backgroundWhite fontSize13px">Km/H</span>
                               </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-7">
-                            <label class="labelStyle">Ultimo Dato:</label>
-                            <input type="text" name="inpUltimoDato" id="inpUltimoDato" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
-                        </div>
                     </div>
                     <div class="row marginTop5px">
                         <div class="col-12">
                             <label class="labelStyle">Direccion:</label>
-                            <input type="text" name="inpDireccion" id="inpDireccion" class="form-control input-sm inputSmall inpDatosVehiculo" readonly>
+                            <input type="text" name="inpDireccion" id="inpDireccion" class="form-control input-sm inputSmall inpDatosVehiculoTracking" readonly>
                         </div>
                     </div>
                     <div class="row marginTop5px">
@@ -234,7 +249,8 @@
                     <div class="row">
                         <div class="col-5"> 
                             <label class="labelStyle">Vehiculo:</label>
-                            <input type="text" id="inpVehiculoRecorrido" class="form-control input-sm inputSmall text-center" onKeyUp="this.value = this.value.toUpperCase()">
+                            <select class="form-control input-sm inputSmall text-center" id="inpVehiculoRecorrido">
+                            </select>
                         </div>
                         <div class="col-7"> 
                             <label class="labelStyle">Fecha:</label>
@@ -253,10 +269,10 @@
                     </div>
                     <div class="row marginTop15px">
                         <div class="col-4"> 
-                            <label class="labelStyle"><input type="checkbox" id="verPasajeros"> Pasajeros</label>
+                            <label class="labelStyle fontSize13px"><input type="checkbox" id="verPasajeros"> Pasajeros</label>
                         </div>
                         <div class="col-8 displayFlex"> 
-                            <label class="labelStyle" style="padding-top: 3px"><input type="checkbox" id="verExcesosVelocidad"> Exc. Velo. </label> 
+                            <label class="labelStyle fontSize13px" style="padding-top: 3px"><input type="checkbox" id="verExcesosVelocidad"> Exc. Velo. </label> 
                             <div class="input-group" style="width: auto; margin-left: 11px">
                               <input type="number" name="inplimiteExcesoVelocidad" id="inplimiteExcesoVelocidad" value="40" class="form-control input-sm inputSmall" style="max-width: 50px; height: 30px">
                               <div class="input-group-append inputSmallSinPad">
@@ -284,6 +300,7 @@
 
     <script src="../libs/jqx-all.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>
+    <script src="../libs/markerwithlabel.js"></script>
     
     <script src="../js/scripts.js"></script>
     <script src="../js/functionsUtiles.js"></script>

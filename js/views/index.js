@@ -20,7 +20,6 @@ $(function() {
 	    });
     }
     
-
 	$("#btnlogin").click(function(){
 		if($("#inputCedula").val()==""){
 			swal.error('Debe ingresar una cedula');
@@ -34,9 +33,6 @@ $(function() {
 
 		setLogin($("#inputCedula").val(), $("#inputPassword").val());			
 	});
-
-
-
 
 
 });

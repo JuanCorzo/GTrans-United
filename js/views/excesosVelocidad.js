@@ -37,12 +37,14 @@ $(function() {
             xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
         },
         success: function (res){
-             $.each(res.data, function(key, value) {
+            $.each(res.data, function(key, value) {
                  $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
-              });
+            });
+            return false;
         },
         error: function (res){
-            console.log(res.responseJSON)
+            swal.error(res.responseJSON.message);
+            return false;
         }
     });
 
@@ -71,7 +73,7 @@ $(function() {
               return false;
           },
           error: function (res){
-              console.log(res);
+              swal.error(res.responseJSON.message);
               return false;
           }
       });

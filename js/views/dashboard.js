@@ -15,7 +15,7 @@ $(function() {
           dataType: 'JSON',
           contentType: 'application/json',
           beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+              xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
           },
           success: function (res){
 
@@ -30,7 +30,7 @@ $(function() {
               return false;
           },
           error: function (res){
-              console.log(res);
+              swal.error(res.responseJSON.message);
               return false;
           }
       });

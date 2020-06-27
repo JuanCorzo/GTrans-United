@@ -1,6 +1,6 @@
 
 var urlAPI = "http://192.190.42.212:3000";
-
+var urlSocketOpto = "ws://192.190.43.26:9001";
 
 
 
@@ -38,7 +38,7 @@ function timeNow() {
     return time;
 }
 
-function imagenRumbo(rumbo, idEvento, enruta, ruta, velocidad) {
+function imagenRumbo(rumbo, idEvento, velocidad) {
     var url = '../images/markers/';
     var imagen = "";
     if (velocidad >= 50) {
@@ -53,17 +53,13 @@ function imagenRumbo(rumbo, idEvento, enruta, ruta, velocidad) {
 
     if (idEvento == 1) {
         return  url + 'otros/pausado.svg';
-    } else if (rumbo > 315 || (rumbo >= 0 && rumbo <= 45))
-    {
+    } else if (rumbo > 315 || (rumbo >= 0 && rumbo <= 45)){
         imagen = url + 'SinRuta/1.svg';
-    } else if (rumbo > 45 && rumbo <= 135)
-    {
+    } else if (rumbo > 45 && rumbo <= 135){
         imagen = url + 'SinRuta/3.svg';
-    } else if (rumbo > 135 && rumbo <= 225)
-    {
+    } else if (rumbo > 135 && rumbo <= 225){
         imagen = url + 'SinRuta/2.svg';
-    } else if (rumbo > 225 && rumbo <= 315)
-    {
+    } else if (rumbo > 225 && rumbo <= 315){
         imagen = url + 'SinRuta/4.svg';
     }
 
@@ -88,6 +84,68 @@ function CoordenadasKml(kml) {
     return flightPath
 }
 
+function ConvertDMSToDD(dms) {
+    if (!dms) { 
+        return Number.NaN; 
+    } 
+    try {
+        var neg = dms.match(/(^\s?-)|(\s?[SW]\s?$)/)!=null? -1.0 : 1.0; 
+        dms = dms.replace(/(^\s?-)|(\s?[NSEW]\s?)$/,''); 
+        var parts=dms.match(/(\d{1,3})[.,Â°d ]?\s*(\d{0,2}(?:\.\d+)?)[']?/); 
+        if (parts==null) { 
+            return Number.NaN; 
+        } 
+        var d= (parts[1]?         parts[1]  : '0.0')*1.0; 
+        var m= (parts[2]?         parts[2]  : '0.0')*1.0; 
+        var dec= (d + (m/60.0))*neg; 
+        return dec; 
+    } catch (ex){
+        console.log(ex)
+        return Number.NaN; 
+    }
+} 
+
+var rad = function(x) {
+    return x * Math.PI / 180;
+};
+
+function getDistance(p1, p2, p3, p4) {
+    var R = 6378137;
+    var dLat = rad(p3 - p1);
+    var dLong = rad(p4 - p2);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(rad(p1)) * Math.cos(rad(p3)) *
+    Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+}
+
+function getRumbo(lat1, lon1, lat2, lon2){
+    var dLon = ToRad(lon2 - lon1);
+    var dPhi = Math.log(Math.tan(ToRad(lat2) / 2 + Math.PI / 4) / Math.tan(ToRad(lat1) / 2 + Math.PI / 4));
+    if (Math.abs(dLon) > Math.PI){
+        if (dLon > 0) {
+            dLon=2 * Math.PI - dLon;
+        }else{
+            dLon=2 * Math.PI + dLon;
+        }
+    }
+    return ToBearing(Math.atan2(dLon, dPhi));
+}
+
+function ToBearing(radians){
+    return (ToDegrees(radians) + 360) % 360;
+}
+
+function ToDegrees(radians){
+    return radians * 180 / Math.PI;
+}
+
+function ToRad(degrees){
+    return degrees * (Math.PI / 180);
+}
+    
 /* ALERTAS Y MENSAJES */
 
 var toast = {
