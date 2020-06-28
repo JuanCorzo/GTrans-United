@@ -1,22 +1,23 @@
 $(function() {
 
+    const dataUser = JSON.parse(localStorage.getItem('userData'));
+
+
+
     $('#inpFecha').val(dateNow());
 
-    let dataUser = JSON.parse(localStorage.getItem('userData'));
+    // ---------------------------
 
- 
-    function getViajes(fecha, tipo, propietario) {
+    function AjaxGetViajes(fecha, tipo) {
       $.ajax({
-          url: urlAPI + "/viajes/getViajesRecaudados/"+fecha+"/"+tipo+"/"+propietario,
+          url: urlAPI + "/viajes/getViajesRecaudados/"+fecha+"/"+tipo+"/"+dataUser.idPropietario,
           type: "GET",
           dataType: 'JSON',
           contentType: 'application/json',
           beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+              xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
           },
           success: function (res){
-              
-              
               var rtn = [];
               $.each(res.data, function(key, value) {
                   rtn.push({val:[{
@@ -24,20 +25,17 @@ $(function() {
                   factura: value.factura, bruto: value.Bruto, timbradas: value.Timbradas, viajes: value.Viaje, extemporaneo: value.extemporaneo
                   }]});
               });
-
-              cargarData(rtn)
-
+              cargarData(rtn);
               return false;
           },
           error: function (res){
-              alert(res.responseJSON.message);
+              swal.error(res.responseJSON.message);
               return false;
           }
       });
     }
 
     function cargarData(datos){
-        console.log(datos)
         var source = {
             localData: datos,
             dataType: "array"
@@ -55,41 +53,34 @@ $(function() {
             selectionMode: 'none',
             columns: [
                 {
-                      text: 'Ventas', align: 'left', dataField: 'model',
-                      cellsRenderer: function (row, column, value, rowData) {
-
-                          var punto = rowData.val;
-                          console.log(punto);
-
-                          var container = "<div>";
-                          for (var i = 0; i < punto.length; i++) {
-                              var punto = punto[i];
-                              var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
-                              var info = "<div style='background: "+((punto.extemporaneo==1)?("#fffda1"):("#e9ecef"))+"; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-style: italic; font-size: 15px'>";
-                              info += "<div class='row'><div class='col-12 col-sm-4'>Dia: "+punto.recaudo+"</div><div class='col-6 col-sm-4'>Fecha: "+punto.fecha+"</div><div class='col-6 col-sm-4'>Tims: "+punto.timbradas+"</div><div class='col-6 col-sm-4'>Factura: "+punto.factura+"</div><div class='col-6 col-sm-3' >Bruto: "+punto.bruto+"</div><div class='col-6 col-sm-3' >Vehiculo: "+punto.codigo+"</div> <div class='col-6 col-sm-3' >Viaje: "+punto.viajes+"</div> </div>";
-                              info += "</div>";
-                              item += info;
-                              item += "</div>";
-                              container += item;
-                          }
-                          container += "</div>";
-                          return container;
-
+                  text: 'Ventas', align: 'left', dataField: 'model',
+                  cellsRenderer: function (row, column, value, rowData) {
+                      var punto = rowData.val;
+                      var container = "<div>";
+                      for (var i = 0; i < punto.length; i++) {
+                          var punto = punto[i];
+                          var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
+                          var info = "<div style='background: "+((punto.extemporaneo==1)?("#fffda1"):("#e9ecef"))+"; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
+                          info += "<div class='row'><div class='col-12 textCenter' style='background: white; color: #039be5; font-weight: bold; margin-bottom: 5px'>Recaudo: "+punto.recaudo+"</div><div class='col-6'>Fecha: "+punto.fecha+"</div><div class='col-6'>Vehiculo: "+punto.codigo+"</div><div class='col-6'>Viaje: "+punto.viajes+"</div><div class='col-6' >Bruto: <b>"+punto.bruto+"</b></div><div class='col-6' >Tims: "+punto.timbradas+"</div><div class='col-6'>Factura: "+punto.factura+"</div></div>";
+                          info += "</div>";
+                          item += info;
+                          item += "</div>";
+                          container += item;
                       }
+                      container += "</div>";
+                      return container;
                   }
+                }
             ]
         });       
     }
 
-
-
     $("#btnCargar").click(function(){
-        getViajes($("#inpFecha").val(), $("input[name='inpCheckDia']:checked").val(), dataUser.idPropietario)
+        AjaxGetViajes($("#inpFecha").val(), $("input[name='inpCheckDia']:checked").val());
     });
 
 
-
-
+    AjaxGetViajes($("#inpFecha").val(), $("input[name='inpCheckDia']:checked").val());
 
 
 });

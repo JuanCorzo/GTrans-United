@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
 
     <title>VIAJES DEL DIA</title>
 
@@ -16,46 +15,40 @@
     <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
     <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
 
-    <style>
-        html{
-          touch-action: none;  
-        }
-    </style>
-
   </head>
 
   <body id="page-top">
 
     <div id="wrapper">
-      <div id="content-wrapper" class="paddingBottom0">
+      <div id="content-wrapper">
 
-        <div class="container-fluid" style="height: 90vh">
+        <div class="container-fluid" style="height: 100%">
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb marginBottom10px">
-            <li class="breadcrumb-item">
-              <a href="#" class="MenuLink" data-id="MenuDashboard">Inicio</a>
-            </li>
-            <li class="breadcrumb-item active">Viajes del Dia</li>
+              <li class="breadcrumb-item">
+                <a href="#">Inicio</a>
+              </li>
+              <li class="breadcrumb-item active">Viajes del Dia</li>
           </ol>
           
           <div class="row">
-            <div class="col-12 col-sm-3 marginTop5px">
-                <input type="date" id="inpFecha" class="form-control input-sm inputSmall" value="<>" >
-            </div>
-            <div class="col-12 col-sm-3 marginTop5px">
-                <label>Fecha Dia <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" checked="true" value="0"></label>
-            </div>
-            <div class="col-12 col-sm-3 marginTop5px">
-                <label>Fecha Recaudo <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" value="1"></label>
-            </div>
-            <div class="col-12 col-sm-3 marginTop5px">
-              <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar">
-                <i class="fas fa-search"></i> Cargar</button>
-            </div>
+              <div class="col-12 marginTop5px">
+                  <input type="date" id="inpFecha" class="form-control input-sm inputSmall" value="<>" >
+              </div>
+              <div class="col-6 marginTop5px textCenter">
+                  <label class="labelStyle">Fecha Dia <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" checked="true" value="0"></label>
+              </div>
+              <div class="col-6 marginTop5px textCenter">
+                  <label class="labelStyle">Fecha Recaudo <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" value="1"></label>
+              </div>
+              <div class="col-12 marginTop5px">
+                <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar">
+                  <i class="fas fa-search"></i> Cargar</button>
+              </div>
           </div>
 
-          <div class="table-responsive height78porciento marginTop10px">
+          <div class="marginTop10px">
               <div id="gridDatos"></div> 
           </div>
             
@@ -71,15 +64,10 @@
     <script src="../libs/sweetalert2.js"></script>
 
     <script src="../libs/jqx-all.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>
-
 
     <script src="../js/scripts.js"></script>
     <script src="../js/functionsUtiles.js"></script>
-    <script src="../js/views/app.js"></script>
     <script src="../js/views/viajes.js"></script>
-
-
 
 
   </body>

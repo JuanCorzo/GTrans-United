@@ -35,8 +35,7 @@ $(function() {
 			    cargarVistaIframe("excesosVelocidad.html");
 			    break;
 			case "MenuViajes":
-				swal.question("Opcion en construccion");
-			    // cargarVistaIframe("viajes.html");
+			    cargarVistaIframe("viajes.html");
 			    break;
 			case "MenuGraficas":
 				swal.question("Opcion en construccion");

@@ -15,93 +15,85 @@
     <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
     <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
 
-    <style>
-        html{
-          touch-action: none;  
-        }
-    </style>
-
   </head>
 
   <body id="page-top">
 
     <div id="wrapper">
-      <div id="content-wrapper" class="paddingBottom0">
+      <div id="content-wrapper">
 
-        <div class="container-fluid" style="height: 90vh">
+        <div class="container-fluid" style="height: 100%">
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb marginBottom10px">
-            <li class="breadcrumb-item">
-              <a href="#" class="MenuLink" data-id="MenuDashboard">Inicio</a>
-            </li>
-            <li class="breadcrumb-item active">Excesos Velocidad</li>
+              <li class="breadcrumb-item">
+                <a href="#">Inicio</a>
+              </li>
+              <li class="breadcrumb-item active">Excesos Velocidad</li>
           </ol>
           
           <div class="row">
-            <div class="col-12 col-sm-3 marginTop5px">
-                <input type="date" id="inpFecha" class="form-control input-sm inputSmall" value="" >
-            </div>
-            <div class="col-7 col-sm-3 marginTop5px">
-                <div class="input-group">
-                  <div class="input-group-prepend inputSmallSinPad">
-                    <div class="input-group-text fontSize13px paddingLaterales10px">Vehiculo: </div>
+              <div class="col-12 col-sm-3 marginTop5px">
+                  <input type="date" id="inpFecha" class="form-control input-sm inputSmall">
+              </div>
+              <div class="col-7 col-sm-3 marginTop5px">
+                  <div class="input-group">
+                    <div class="input-group-prepend inputSmallSinPad">
+                      <div class="input-group-text fontSize14px paddingLaterales10px">Vehiculo: </div>
+                    </div>
+                    <select class="form-control input-sm inputSmall" id="inpVehiculo">
+                    </select>
                   </div>
-                  <select class="form-control input-sm inputSmall" id="inpVehiculo">
-                        
-                  </select>
-                </div>  
-            </div>
-            <div class="col-5 col-sm-3 marginTop5px">
-                <div class="input-group">
-                  <input type="number" id="inpVelocidad" name="inpVelocidad" value="50" class="form-control input-sm inputSmall">
-                  <div class="input-group-prepend inputSmallSinPad">
-                    <div class="input-group-text fontSize13px paddingLaterales10px">Km/H</div>
-                  </div>
-                </div>  
-            </div>
-            <div class="col-12 col-sm-3 marginTop5px">
-              <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar"><i class="fas fa-search"></i> Cargar</button>
-            </div>
+              </div>
+              <div class="col-5 col-sm-3 marginTop5px">
+                  <div class="input-group">
+                    <input type="number" id="inpVelocidad" name="inpVelocidad" value="50" class="form-control input-sm inputSmall">
+                    <div class="input-group-prepend inputSmallSinPad">
+                      <div class="input-group-text fontSize14px paddingLaterales10px">Km/H</div>
+                    </div>
+                  </div>  
+              </div>
+              <div class="col-12 col-sm-3 marginTop5px">
+                <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar"><i class="fas fa-search"></i> Cargar</button>
+              </div>
           </div>
 
-          <div class="table-responsive height78porciento marginTop10px">
+          <div class="marginTop10px">
               <div id="gridDatos"></div> 
           </div>
-            
 
+          <label class="width100porciento textCenter marginTop5px"><small>* Doble click sobre el registro  para <br> ver la ubicacion exacta</small></label>
         </div>
       </div>
     </div>
 
-    
+
     <!-- UBICACION -->
     <div class="modal" tabindex="-1" role="dialog" id="modalUbicar" data-backdrop="static" data-keyboard="false">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Ubicacion</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                <h5 class="modal-title width100porciento textCenter">Ubicacion</h5>
             </div>
             <div class="modal-body" style="padding-top: 7px;">
                 
-                <label class="labelStyle">Direccion:</label>
+                <label class="labelStyle width100porciento textCenter">Direccion:</label>
                 <br>
-                <label id="lblDireccion" class="margin0">-</label>
+                <label id="lblDireccion" class="margin0 width100porciento textCenter">-</label>
 
-                <hr class="styleHR">
+                <hr>
 
-                <div id="googleMap" style="width:100%;height:250px;"></div>
+                <div id="googleMap" style="width:100%; height:250px;"></div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary inputSmall" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
       </div>
     </div>
+
+    <!--  ----------------------------------- -->
 
 
     <script src="../libs/jquery.js"></script>
@@ -110,14 +102,11 @@
     <script src="../libs/sweetalert2.js"></script>
 
     <script src="../libs/jqx-all.js"></script>
-
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>
 
     <script src="../js/scripts.js"></script>
     <script src="../js/functionsUtiles.js"></script>
     <script src="../js/views/excesosVelocidad.js"></script>
-
-
 
 
   </body>

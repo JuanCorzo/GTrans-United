@@ -3,7 +3,7 @@ $(function () {
     const dataUser = JSON.parse(localStorage.getItem('userData'));
 
     
-    var LatandLong = {lat: 11.0073953, lng: -74.8286633};
+    var LatandLong = {lat: 10.9832981, lng: -74.8017122};
     var zoom = 13;
     var map;
     var markers = {};
@@ -30,7 +30,6 @@ $(function () {
     $('#inpHoraFinalRecorrido').val(timeNow());
 
     // ---------------------------
-
 
     map = new google.maps.Map(document.getElementById('googleMap'), {
         zoom: zoom,
@@ -452,7 +451,7 @@ $(function () {
                       }
                   }
             ]
-        });       
+        });
     }
 
     function crearGrillaDetalle(datos){
@@ -492,7 +491,7 @@ $(function () {
                       }
                   }
             ]
-        });       
+        });     
     }
 
     function limpiarRecorrido() {
@@ -534,22 +533,26 @@ $(function () {
             polilineaRecorrido = new google.maps.Polyline({
                 path: poliRecorrido,
                 geodesic: true,
-                strokeColor: '#FF0000',
+                strokeColor: '#343a40',
                 strokeOpacity: 1.0,
-                strokeWeight: 2
+                strokeWeight: 3
             });
             polilineaRecorrido.setMap(map);
 
-            markerRecorrido = new MarkerWithLabel({
+            markerRecorrido = new google.maps.Marker({
                 position: {lat: parseFloat(datosRecorrido[0].LATITUD), lng: parseFloat(datosRecorrido[0].LONGITUD)},
-                draggable: false,
+                icon: '../images/markers/SinRuta/1.svg',
+                label: {
+                  text: datosRecorrido[0].codigo,
+                  color: '#fff',
+                  fontSize: '11px',
+                  fontWeight: 'bold',
+                },
                 map: map,
-                labelContent: datosRecorrido[0].codigo,
-                labelAnchor: new google.maps.Point(22, 0),
-                labelClass: "labelMarker",
-                icon: '../images/markers/otros/map-markerBlue.png',
-                title: datosRecorrido[0].codigo
+                title: datosRecorrido[0].codigo,
+                codigo: datosRecorrido[0].codigo,
             });
+
             ocultarMarkers();
             mostrarIconsRecorridos();
             $("#modalRecorrido").modal("hide");
@@ -560,6 +563,8 @@ $(function () {
 
     function runRecorrido() {
         $("#btnPause").html("<i class='fa fa-pause'></i>");
+        map.setCenter(new google.maps.LatLng(parseFloat(datosRecorrido[0].LATITUD), parseFloat(datosRecorrido[0].LONGITUD)));
+        map.setZoom(17);
         recorriendo = true;
         intervaloRecorrido =
         setInterval(
@@ -583,8 +588,10 @@ $(function () {
             recorriendo = false;
             clearInterval(intervaloRecorrido);
             $("#btnPause").html("<i class='fa fa-play'></i>");
+            markerRecorrido.setIcon('../images/markers/otros/pausado.svg');  
         } else {
             runRecorrido();
+            markerRecorrido.setIcon('../images/markers/SinRuta/1.svg');  
         }
     });
 
@@ -634,6 +641,16 @@ $(function () {
 
     $("#btnCargarDetalle").click(function () {
         AjaxDatosGrillaDetalle($("#inpVehiculoHidden").val());
+    });
+
+    $("#aTabConsolidado").click(function () {
+        $('#gridConsolidados').jqxDataTable({width: $('#gridConsolidados').jqxDataTable('width') - 1 });
+        $('#gridConsolidados').jqxDataTable({width: $('#gridConsolidados').jqxDataTable('width') + 1 });
+    });
+
+    $("#aTabDetalle").click(function () {
+        $('#gridDetalle').jqxDataTable({width: $('#gridDetalle').jqxDataTable('width') - 1 });
+        $('#gridDetalle').jqxDataTable({width: $('#gridDetalle').jqxDataTable('width') + 1 }); 
     });
 
     $("#btnCargarRecorrido").click(function () {

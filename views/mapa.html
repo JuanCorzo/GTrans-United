@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
 
-    <title>Mapa</title>
+    <title>MAPA</title>
 
     <link href="../libs/bootstrap.css" rel="stylesheet">
     <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
@@ -65,6 +65,10 @@
           left: 11px;  
       }
 
+      #btnsFlotantesRecorridos button{
+          padding: 5px 12px 7px 12px;
+      }
+
     </style>
 
   </head>
@@ -73,7 +77,7 @@
 
     <div id="btnFloatVehiculo">
         <input id="inpVehiculo" type="text" class="form-control input-sm borderRadius7pt" placeholder="Vehiculo"/> 
-        <button id="btnBusqueda" type="button" class='btn-floating btn btn-default btn-sm paddingLaterales12px backgroundBlue borderRadius7pt colorWhite'>Buscar</button>
+        <button id="btnBusqueda" type="button" class='btn-floating btn btn-primary btn-sm paddingLaterales12px borderRadius7pt colorWhite'>Buscar</button>
     </div>
 
     <div id="googleMap" style="width:100%;height:100vh;"></div>
@@ -84,17 +88,23 @@
     </div>
 
     <div id="btnsFlotantesRecorridos" class="displayNone">
-        <button id="btnFirst" title="Inicio" class="btn btn-dark borderNone"><i class="fa fa-step-backward fontSize13px"></i></button>
-        <button id="btnBack" title="Retroceder" class="btn btn-dark borderNone"><i class="fa fa-backward fontSize13px"></i></button>
+        <div class="btn-group" role="group">
+          <button id="btnFirst" title="Inicio" class="btn btn-dark borderNone"><i class="fa fa-step-backward fontSize13px"></i></button>
+          <button id="btnBack" title="Retroceder" class="btn btn-dark borderNone"><i class="fa fa-backward fontSize13px"></i></button>
+        </div>
+
         <button id="btnPause" title="Iniciar/Pausar" class="btn btn-circle btn-dark borderNone"><i class="fa fa-play fontSize16px"></i></button>
-        <button id="btnNext" title="Adelantar" class="btn btn-dark borderNone"><i class="fa fa-forward fontSize13px"></i></button>
-        <button id="btnLast" title="Fin" class="btn btn-dark borderNone"><i class="fa fa-step-forward fontSize13px"></i></button>
+
+        <div class="btn-group" role="group">
+          <button id="btnNext" title="Adelantar" class="btn btn-dark borderNone"><i class="fa fa-forward fontSize13px"></i></button>
+          <button id="btnLast" title="Fin" class="btn btn-dark borderNone"><i class="fa fa-step-forward fontSize13px"></i></button>
+        </div>
     </div>
 
     <!--  ----------------------------------- -->
 
     <!-- MODAL DETALLE -->
-    <div class="modal" tabindex="-1" role="dialog" id="modalDetalle">
+    <div class="modal" tabindex="-1" role="dialog" id="modalDetalle" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,10 +119,10 @@
                   <a class="nav-link active" data-toggle="tab" href="#tabDatosGeneral" role="tab" aria-controls="tabDatosGeneral" aria-selected="true">Datos Generales</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tabConsolidado" role="tab" aria-controls="tabConsolidado" aria-selected="false">Consolidado</a>
+                  <a class="nav-link" data-toggle="tab" href="#tabConsolidado" role="tab" aria-controls="tabConsolidado" aria-selected="false" id="aTabConsolidado">Consolidado</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tabDetalle" role="tab" aria-controls="tabDetalle" aria-selected="false">Detalle</a>
+                  <a class="nav-link" data-toggle="tab" href="#tabDetalle" role="tab" aria-controls="tabDetalle" aria-selected="false" id="aTabDetalle">Detalle</a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -190,7 +200,7 @@
                     </div>                  
                   </div>
 
-                  <div class="table-responsive height78porciento marginTop10px">
+                  <div class="height78porciento marginTop10px">
                       <div id="gridConsolidados"></div> 
                   </div>
 
@@ -222,7 +232,7 @@
                       </div>                  
                     </div>
 
-                    <div class="table-responsive height78porciento marginTop10px">
+                    <div class="height78porciento marginTop10px">
                         <div id="gridDetalle"></div> 
                     </div>
                 </div>
@@ -239,7 +249,7 @@
     <!--  ----------------------------------- -->
 
     <!-- MODAL RECORRIDO -->
-    <div class="modal" id="modalRecorrido" tabindex="-1" role="dialog">
+    <div class="modal" tabindex="-1" role="dialog" id="modalRecorrido" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -269,12 +279,12 @@
                     </div>
                     <div class="row marginTop15px">
                         <div class="col-4"> 
-                            <label class="labelStyle fontSize13px"><input type="checkbox" id="verPasajeros"> Pasajeros</label>
+                            <label class="labelStyle"><input type="checkbox" id="verPasajeros"> Pasajeros</label>
                         </div>
                         <div class="col-8 displayFlex"> 
-                            <label class="labelStyle fontSize13px" style="padding-top: 3px"><input type="checkbox" id="verExcesosVelocidad"> Exc. Velo. </label> 
+                            <label class="labelStyle" style="padding-top: 3px"><input type="checkbox" id="verExcesosVelocidad"> Exc. Velo. </label> 
                             <div class="input-group" style="width: auto; margin-left: 11px">
-                              <input type="number" name="inplimiteExcesoVelocidad" id="inplimiteExcesoVelocidad" value="40" class="form-control input-sm inputSmall" style="max-width: 50px; height: 30px">
+                              <input type="number" name="inplimiteExcesoVelocidad" id="inplimiteExcesoVelocidad" value="40" class="form-control input-sm inputSmall" style="max-width: 50px">
                               <div class="input-group-append inputSmallSinPad">
                                 <span class="input-group-text backgroundWhite fontSize13px">Km/H</span>
                               </div>
@@ -300,7 +310,6 @@
 
     <script src="../libs/jqx-all.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU"></script>
-    <script src="../libs/markerwithlabel.js"></script>
     
     <script src="../js/scripts.js"></script>
     <script src="../js/functionsUtiles.js"></script>

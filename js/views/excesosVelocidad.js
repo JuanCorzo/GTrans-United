@@ -3,14 +3,16 @@ $(function() {
     const dataUser = JSON.parse(localStorage.getItem('userData'));
 
 
-    toast.question("OPCION PENDIENTE POR REVISION");
-
-
+    var LatandLong = {lat: 10.9832981, lng: -74.8017122};
+    var zoom = 14;
     var map;
-    var LatandLong = {lat: parseFloat(10.9738178), lng: parseFloat(-74.7939255)};
+
+    $('#inpFecha').val(dateNow());
+
+    // ---------------------------
 
     map = new google.maps.Map(document.getElementById('googleMap'), {
-        zoom: 14,
+        zoom: zoom,
         center: LatandLong,
         zoomControl: false,
         mapTypeControl: false,
@@ -26,20 +28,19 @@ $(function() {
         labelStyle: {opacity: 0.95}
     });
 
-    $('#inpFecha').val(dateNow());
-
     $.ajax({
-        url: "http://192.190.42.212:3000/vehiculos/getVehiculos/"+dataUser.idPropietario,
+        url: urlAPI + "/vehiculos/getVehiculos/"+dataUser.idPropietario,
         type: "GET",
         dataType: 'JSON',
         contentType: 'application/json',
         beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
-                 $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
+                $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
             });
+            AjaxGetVelocidades();
             return false;
         },
         error: function (res){
@@ -48,28 +49,21 @@ $(function() {
         }
     });
 
-
-  function getVelocidades(fecha, vehiculo, limit) {
+    function AjaxGetVelocidades() {
       $.ajax({
-          url: "http://192.190.42.212:3000/tracking/getVelocidadesOpto/"+fecha+"/"+vehiculo+"/"+limit,
+          url: urlAPI + "/tracking/getVelocidadesOpto/"+$("#inpFecha").val()+"/"+$("#inpVehiculo").val()+"/"+$("#inpVelocidad").val(),
           type: "GET",
           dataType: 'JSON',
           contentType: 'application/json',
           beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+              xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
           },
           success: function (res){
-
               var rtn = [];
               $.each(res.data, function(key, value) {
-                  rtn.push({val:[{
-                  fecha: value.fechaFormat, latitud: (String(value.latitud).substr(0,10)), longitud: (String(value.longitud).substr(0,10)), 
-                  velocidad: value.velocidad
-                  }]});
+                  rtn.push({val:[{fecha: value.fechaFormat, latitud: (String(value.latitud).substr(0,10)), longitud: (String(value.longitud).substr(0,10)), velocidad: value.velocidad}]});
               });
-
-              cargarData(rtn)
-
+              cargarData(rtn);
               return false;
           },
           error: function (res){
@@ -79,9 +73,7 @@ $(function() {
       });
     }
 
-
-   function cargarData(datos){
-        console.log(datos)
+    function cargarData(datos){
         var source = {
             localData: datos,
             dataType: "array"
@@ -99,37 +91,35 @@ $(function() {
             selectionMode: 'none',
             columns: [
                 {
-                      text: 'Velocidades', align: 'left', dataField: 'model',
-                      cellsRenderer: function (row, column, value, rowData) {
-
-                          var punto = rowData.val;
-                          console.log(punto);
-
-                          var container = "<div>";
-                          for (var i = 0; i < punto.length; i++) {
-                              var punto = punto[i];
-                              var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
-                              var info = "<div style='background: #e9ecef; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-style: italic; font-size: 15px'>";
-                              info +=  "<div class='row'><div class='col-12 col-sm-4'>Fecha: "+punto.fecha+"</div><div class='col-6 col-sm-4'>Lat "+punto.latitud+"</div><div class='col-6 col-sm-4'>Long "+punto.longitud+"</div><div class='col-6 col-sm-4'>Velocidad: "+punto.velocidad+"</div></div>";
-                              info += "</div>";
-                              item += info;
-                              item += "</div>";
-                              container += item;
-                          }
-                          container += "</div>";
-                          return container;
-
-                      }
-                  }
+                    text: 'Velocidades', align: 'left', dataField: 'model',
+                    cellsRenderer: function (row, column, value, rowData) {
+                        var punto = rowData.val;
+                        var container = "<div>";
+                        for (var i = 0; i < punto.length; i++) {
+                            var punto = punto[i];
+                            var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
+                            var info = "<div style='background: #e9ecef; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
+                            info +=  "<div class='row'><div class='col-12 textCenter' style='background: white; color: #039be5; font-weight: bold; margin-bottom: 5px'>Fecha: "+punto.fecha+"</div><div class='col-12 textCenter'>Velocidad: "+punto.velocidad+" Km/H</div></div>";
+                            info += "</div>";
+                            item += info;
+                            item += "</div>";
+                            container += item;
+                        }
+                        container += "</div>";
+                        return container;
+                    }
+                }
             ]
         });       
     }
 
-
     $("#btnCargar").click(function(){
-        getVelocidades($("#inpFecha").val(), $("#inpVehiculo").val() ,$("#inpVelocidad").val())
+        if($("#inpVehiculo").val() == ""){
+            swal.error("Debe escojer un vehiculo");
+            return false;
+        }
+        AjaxGetVelocidades();
     });
-
 
     $('#gridDatos').on('rowDoubleClick', function (event) { 
         var args = event.args;

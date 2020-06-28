@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
 
-    <title>Dashboard</title>
+    <title>DASHBOARD</title>
 
     <link href="../libs/bootstrap.css" rel="stylesheet">
     <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
@@ -17,70 +17,66 @@
   <body id="page-top">
 
     <div id="wrapper">
-      <div id="content-wrapper" class="paddingBottom20">
+      <div id="content-wrapper">
 
-        <div class="container-fluid">
+        <div class="container-fluid" style="height: 100%">
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Vista general</li>
+              <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Vista general</li>
           </ol>
 
           <!-- Icon Cards-->
           <div class="row">
-            <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card backgroundWhiteClaro o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                    <i class="fas fa-fw fa-bell colorBlue"></i>
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card backgroundWhiteClaro o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fas fa-fw fa-bell colorBlue"></i>
+                    </div>
+                    <div class="mr-5" id="divAlarmasB">258 Total Timbradas</div>
                   </div>
-                  <div class="mr-5" id="divAlarmasB">- Alarmas Basicas</div>
+                  <a class="card-footer clearfix small z-1" href="#">
+                    <span class="float-left colorBlack">Ver mas</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right colorBlack"></i>
+                    </span>
+                  </a>
                 </div>
-                <a class="card-footer clearfix small z-1" href="#">
-                  <span class="float-left colorBlack">Ver mas</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right colorBlack"></i>
-                  </span>
-                </a>
               </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card backgroundWhiteClaro o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                    <i class="fas fa-fw fa-exclamation-triangle colorYellow"></i>
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card backgroundWhiteClaro o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fas fa-fw fa-exclamation-triangle colorYellow"></i>
+                    </div>
+                    <div class="mr-5" id="divAlarmasC">6 Alarmas Criticas</div>
                   </div>
-                  <div class="mr-5" id="divAlarmasC">- Alarmas Criticas</div>
+                  <a class="card-footer clearfix small z-1" href="#">
+                    <span class="float-left colorBlack">Ver mas</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right colorBlack"></i>
+                    </span>
+                  </a>
                 </div>
-                <a class="card-footer clearfix small z-1" href="#">
-                  <span class="float-left colorBlack">Ver mas</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right colorBlack"></i>
-                  </span>
-                </a>
               </div>
-            </div>
           </div>
 
-          
           <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-chart-area"></i>
-              Data grafica</div>
-            <div class="card-body">
-                <canvas id="myAreaChart" class="chartResize" width="100%" height="200%"></canvas>
-                <!--<canvas id="myAreaChart" class="chartResize" width="100%" height="200%"></canvas>-->
-            </div>			
-            <div class="card-footer small text-muted">Actualizado al instante</div>
+              <div class="card-header">
+                <i class="fas fa-chart-area"></i> Data grafica</div>
+              <div class="card-body">
+                  <canvas id="myAreaChart" class="chartResize" width="100%" height="200%"></canvas>
+              </div>			
+              <div class="card-footer small text-muted">Actualizado al instante</div>
           </div>
 		  
         </div>
 
       </div>
-
     </div>
 
     <script src="../libs/jquery.js"></script>
@@ -88,7 +84,6 @@
     <script src="../libs/jquery.easing.js"></script>
     <script src="../libs/sweetalert2.js"></script>
 
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
     <script src="../js/scripts.js"></script>

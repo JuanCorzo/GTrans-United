@@ -15,10 +15,10 @@ body {
 }
 
 #wrapper #content-wrapper {
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   width: 100%;
   padding-top: 1rem;
-  padding-bottom: 80px;
+  padding-bottom: 1rem;
 }
 
 body.fixed-nav #content-wrapper {
@@ -603,6 +603,10 @@ body.sidebar-toggled footer.sticky-footer {
   font-size: 13px;
 }
 
+.fontSize14px{
+  font-size: 14px;
+}
+
 .fontSize15px{
   font-size: 15px !important;
 }
@@ -675,6 +679,7 @@ hr.styleHR {
   height: 45px;
   border-radius: 50%;
 }
-
-
+.fontBold{
+  font-weight: bold;
+}
 
