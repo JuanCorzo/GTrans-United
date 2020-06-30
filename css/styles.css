@@ -440,6 +440,18 @@ body.sidebar-toggled footer.sticky-footer {
   padding-top: 10px !important;
 }
 
+.paddingTop10{
+  padding-top: 10px !important;
+}
+
+.paddingR7{
+  padding-right: 7px !important;
+}
+
+.paddingL7{
+  padding-left: 7px !important;
+}
+
 .margin0{
   margin: 0px;
 }
@@ -458,6 +470,10 @@ body.sidebar-toggled footer.sticky-footer {
 
 .marginTop20px{
   margin-top: 20px;
+}
+
+.marginBottom0px{
+  margin-bottom: 0px;
 }
 
 .marginBottom5px{

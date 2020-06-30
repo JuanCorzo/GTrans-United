@@ -5,7 +5,6 @@ var urlSocketOpto = "ws://192.190.43.26:9001";
 
 
 
-
 var aggregatesRender = function (aggregates) {
 	var value = aggregates['sum'];
 	if( value == null){
@@ -14,13 +13,6 @@ var aggregatesRender = function (aggregates) {
 	var renderstring = '<div style="float: right; margin: 4px; overflow: hidden;"><b>' +   value  + '</b></div>';
 	return renderstring;
 }   
-
-if ($(window).width() <= 530) {  
-	var canvas = document.getElementsByClassName("chartResize");  
-    if(canvas.length > 0) {
-        canvas[0].height = 150;
-    }
-}     
 
 function dateNow() {
     var now = new Date();

@@ -38,8 +38,7 @@ $(function() {
 			    cargarVistaIframe("viajes.html");
 			    break;
 			case "MenuGraficas":
-				swal.question("Opcion en construccion");
-			    // cargarVistaIframe("grafica.html");
+			    cargarVistaIframe("grafica.html");
 			    break;
 		}
 
