@@ -20,8 +20,7 @@ $(function () {
     var intervaloAnclado;
     var polilineaRecorrido;
     var recorriendo = false;
-    var misVehiculo = [611];
-    $("#inpVehiculoRecorrido").append("<option value="+611+">"+611+"</option>");
+    var misVehiculo = [];
 
     $('#inpFechaConsolidado').val(dateNow());
     $('#inpFechaDetalle').val(dateNow());
@@ -681,9 +680,12 @@ $(function () {
         var socket2 = new WebSocket(host2);
         pendienteLoad2 = false;
         socket2.onmessage = function(msg){
+            if(misVehiculo.length == 0){
+                return false;
+            }
             if (pendienteLoad2 == false) {
-                $.each(JSON.parse(msg.data), function (i, item) {                
-                    if(misVehiculo.indexOf(parseInt(item.codigo)) != -1){
+                $.each(JSON.parse(msg.data), function (i, item) {  
+                    if(misVehiculo.indexOf(item.codigo) != -1){
                         let lat = ConvertDMSToDD(item.Latitude);        
                         let longi = ConvertDMSToDD(item.longitude);
 
@@ -693,7 +695,7 @@ $(function () {
                 pendienteLoad2 = true;
             }else{
                 $.each(JSON.parse(msg.data), function (i, item) {
-                    if(misVehiculo.indexOf(parseInt(item.codigo)) != -1){
+                    if(misVehiculo.indexOf(item.codigo) != -1){
                         let lat = ConvertDMSToDD(item.Latitude);        
                         let longi = ConvertDMSToDD(item.longitude);
 

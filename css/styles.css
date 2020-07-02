@@ -140,7 +140,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   text-align: center;
   padding: 0.75rem 1rem;
   width: 90px;
-  transition: 0.5s all ease;
+  transition: 0.2s all ease;
 }
 
 .sidebar .nav-item .nav-link span {
@@ -246,8 +246,19 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 .card-body-icon {
   position: absolute;
   z-index: 0;
-  top: -1.25rem;
-  right: -1rem;
+  top: -15px;
+  right: -3px;
+  opacity: 0.4;
+  font-size: 3.4rem;
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+}
+
+.card-body-icon-big {
+  position: absolute;
+  z-index: 0;
+  top: -30px;
+  right: -10px;
   opacity: 0.4;
   font-size: 5rem;
   -webkit-transform: rotate(15deg);

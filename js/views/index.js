@@ -34,5 +34,13 @@ $(function() {
 		setLogin($("#inputCedula").val(), $("#inputPassword").val());			
 	});
 
+	$(window).resize(function(){
+		if($(window).height() < 570){
+			$("#footerLogin").addClass("displayNone");
+		}else{
+			$("#footerLogin").removeClass("displayNone");
+		}
+	});
+
 
 });
