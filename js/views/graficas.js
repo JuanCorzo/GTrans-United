@@ -24,7 +24,7 @@ $(function () {
             $.each(res.data, function(key, value) {
                 $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
             });
-            AjaxGraficaRecaudoDiario();
+            AjaxGraficaVentasDiarias();
             return false;
         },
         error: function (res){
@@ -33,9 +33,9 @@ $(function () {
         }
     });
 
-    function AjaxGraficaRecaudoDiario() {
+    function AjaxGraficaVentasDiarias() {
         $.ajax({
-            url: urlAPI + "/viajes/getSumBrutoByCarroAndFecha",
+            url: urlAPI + "/viajes/getSumTimbByCarroAndFecha",
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
@@ -48,9 +48,9 @@ $(function () {
                 let data =  new Array();
                 $.each(response.data, function(index, value) {
                   fechas.push(value.fecha);
-                  data.push(value.bruto);
+                  data.push(value.total);
                 });
-                cargarGraficaRecaudo(fechas, data);
+                cargarGraficaTimbradas(fechas, data);
                 return false;
             },
             error: function (res) {
@@ -116,14 +116,14 @@ $(function () {
         });
     }
 
-    function cargarGraficaRecaudo(fechas, data){
+    function cargarGraficaTimbradas(fechas, data){
         var ctx = document.getElementById("myAreaChart");
         myLineChart = new Chart(ctx, {
           type: 'line',
           data: {
             labels: fechas,
             datasets: [{
-              label: "Bruto",
+              label: "Timbs.",
               lineTension: 0.3,
               backgroundColor: "rgba(0,123,255,0.2)",
               borderColor: "rgba(0,123,255,0.7)",
@@ -140,7 +140,7 @@ $(function () {
           options: {
             title: {
                 display: true,
-                text: 'Grafica Bruto Recaudado',
+                text: 'Grafica Timbradas Vendidas',
                 fontSize: 18,
                 fontStyle: 500,
                 padding: 20
@@ -158,14 +158,7 @@ $(function () {
               }],
               yAxes: [{
                 ticks: {
-                    min: 0,
-                    callback: function(value, index, values) {
-                      if(parseInt(value) >= 1000){
-                        return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                      } else {
-                        return '$' + value;
-                      }
-                    }
+                    min: 0
                 },
                 gridLines: {
                   color: "rgba(0, 0, 0, .125)",
@@ -180,7 +173,6 @@ $(function () {
     }
 
     function cargarGraficaPromedios(fechas, dataV, dataR){
-
         var ctx = document.getElementById("myAreaChart");
         myLineChart = Chart.Line(ctx, {
             data: {
@@ -309,8 +301,8 @@ $(function () {
         removeData(myLineChart);
         
         switch($("#inpTipo").val()) {
-            case "RecauDiario":
-                AjaxGraficaRecaudoDiario();
+            case "VentasDiaria":
+                AjaxGraficaVentasDiarias();
                 break;
             case "Combustible":
                 AjaxGraficaCombustible();

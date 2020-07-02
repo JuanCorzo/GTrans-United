@@ -33,8 +33,18 @@
           </ol>
           
           <div class="row">
-              <div class="col-12 marginTop5px">
-                  <input type="date" id="inpFecha" class="form-control input-sm inputSmall" value="<>" >
+              <div class="col-6 marginTop5px paddingR7">
+                  <input type="date" class="form-control inputSmall input-sm" id="inpFecha">
+              </div>
+              <div class="col-6 marginTop5px paddingL7">
+                  <div class="input-group">
+                      <div class="input-group-prepend inputSmallSinPad">
+                        <div class="input-group-text fontSize14px paddingLaterales10px">Veh.: </div>
+                      </div>
+                      <select class="form-control input-sm inputSmall" id="inpVehiculo">
+                          <option value="N/A">TODOS</option>
+                      </select>
+                  </div>
               </div>
               <div class="col-6 marginTop5px textCenter">
                   <label class="labelStyle">Fecha Dia <input type="radio" name="inpCheckDia" class="form-control input-sm inputSmall" checked="true" value="0"></label>

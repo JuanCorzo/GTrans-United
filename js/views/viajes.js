@@ -8,12 +8,34 @@ $(function() {
 
     // ---------------------------
 
-    function AjaxGetViajes(fecha, tipo) {
+    $.ajax({
+        url: urlAPI + "/vehiculos/getVehiculos/"+dataUser.idPropietario,
+        type: "GET",
+        dataType: 'JSON',
+        contentType: 'application/json',
+        beforeSend: function (xhr){ 
+            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+        },
+        success: function (res){
+            $.each(res.data, function(key, value) {
+                $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
+            });
+            AjaxGetViajes();
+            return false;
+        },
+        error: function (res){
+            swal.error(res.responseJSON.message);
+            return false;
+        }
+    });
+
+    function AjaxGetViajes() {
       $.ajax({
-          url: urlAPI + "/viajes/getViajesRecaudados/"+fecha+"/"+tipo+"/"+dataUser.idPropietario,
-          type: "GET",
+          url: urlAPI + "/viajes/getViajesRecaudados",
+          type: "POST",
           dataType: 'JSON',
           contentType: 'application/json',
+          data: JSON.stringify({fecha: $("#inpFecha").val(), tipo: $("input[name='inpCheckDia']:checked").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
           beforeSend: function (xhr){ 
               xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
           },
@@ -76,11 +98,8 @@ $(function() {
     }
 
     $("#btnCargar").click(function(){
-        AjaxGetViajes($("#inpFecha").val(), $("input[name='inpCheckDia']:checked").val());
+        AjaxGetViajes();
     });
-
-
-    AjaxGetViajes($("#inpFecha").val(), $("input[name='inpCheckDia']:checked").val());
 
 
 });

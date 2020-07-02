@@ -5,7 +5,7 @@
   // Toggle the side navigation
   $("#sidebarToggle").on('click',function(e) {
     e.preventDefault();
-    $("body").toggleClass("sidebar-toggled");
+    //$("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
   });
 
@@ -37,5 +37,42 @@
     }, 1000, 'easeInOutExpo');
     event.preventDefault();
   });
+
+  var xStartTouchEvent = null;
+  var xEndTouchEvent = null;
+
+  document.addEventListener('touchstart', handleStart, true);
+  document.addEventListener('touchend', handleEnd, true);
+  
+  function handleStart(evt) { 
+      if(!evt.changedTouches.length > 0){
+        return false;
+      }
+      var touch = evt.changedTouches[0];
+      xStartTouchEvent = touch.pageX;
+  }
+
+  function handleEnd(evt) { 
+      if(!evt.changedTouches.length > 0){
+        return false;
+      }
+      var touch = evt.changedTouches[0];
+      xEndTouchEvent = touch.pageX;
+      if(xStartTouchEvent == null){
+        return false;
+      }
+      if(xStartTouchEvent<xEndTouchEvent){
+        if($(".sidebar").hasClass("toggled")){
+          $(".sidebar").toggleClass("toggled")
+        }
+      }
+      if(xStartTouchEvent>xEndTouchEvent){
+        if(!$(".sidebar").hasClass("toggled")){
+          $(".sidebar").toggleClass("toggled")
+        } 
+      }
+  }
+
+
 
 })(jQuery); // End of use strict
