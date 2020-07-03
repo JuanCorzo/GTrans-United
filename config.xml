@@ -40,7 +40,6 @@
 </platform>
 
 <plugin name="cordova-plugin-whitelist" source="npm"/>
-<plugin name="cordova-plugin-googlemaps" source="npm"/>
 <plugin name="cordova-plugin-browsersync" source="npm"/>
 
 <preference name="phonegap-version" value="cli-9.0.0" />
