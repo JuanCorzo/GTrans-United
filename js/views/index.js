@@ -1,6 +1,7 @@
 $(function() {
 
 	function setLogin(cedula, pass) {
+		swal.question('HOLA 2');
 	    $.ajax({
 	        url: urlAPI + "/login",
 	        type: "POST",
@@ -8,6 +9,7 @@ $(function() {
 	        contentType: 'application/json',
 	        data: JSON.stringify({cedula: cedula, pass: pass}),
 	        success: function (res){
+	        	swal.question('HOLA 3');
 	        	localStorage.setItem('token', res.data.token);
 	        	localStorage.setItem('userData', JSON.stringify(res.data.userData));
 	            $(location).attr('href','views/app.html');
@@ -30,6 +32,8 @@ $(function() {
 			swal.error('Debe ingresar una contraseña');
 			return false;
 		}
+
+		swal.question('HOLA');
 
 		setLogin($("#inputCedula").val(), $("#inputPassword").val());			
 	});

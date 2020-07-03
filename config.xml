@@ -16,25 +16,28 @@
 </author>
 
 <content src="index.html" />
-<access origin="*" />
+<access origin="*" subdomains="true" />
 
-<allow-intent href="http://*/*" />
-<allow-intent href="https://*/*" />
-<allow-intent href="tel:*" />
-<allow-intent href="sms:*" />
-<allow-intent href="mailto:*" />
-<allow-intent href="geo:*" />
+<allow-intent target="_blank" href="http://*/*" />
+<allow-intent target="_blank" href="https://*/*" />
+<allow-intent target="_blank" href="tel:*" />
+<allow-intent target="_blank" href="sms:*" />
+<allow-intent target="_blank" href="mailto:*" />
+<allow-intent target="_blank" href="geo:*" />
 <platform name="android">
     <allow-intent href="market:*" />
+    <plugin name="cordova-android-support-gradle-release" source="npm">
+        <variable name="ANDROID_SUPPORT_VERSION" value="28.0.0"/>
+    </plugin>
 </platform>
 <platform name="ios">
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
 </platform>
 
-<plugin name="cordova-plugin-whitelist" />
-<plugin name="cordova-plugin-googlemaps" />
-<plugin name="cordova-plugin-browsersync" />
+<plugin name="cordova-plugin-whitelist" source="npm"/>
+<plugin name="cordova-plugin-googlemaps" source="npm"/>
+<plugin name="cordova-plugin-browsersync" source="npm"/>
 
 <preference name="phonegap-version" value="cli-9.0.0" />
 <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
