@@ -36,7 +36,7 @@
 <plugin name="cordova-plugin-googlemaps" />
 <plugin name="cordova-plugin-browsersync" />
 
-<preference name="phonegap-version" value="cli-8.1.1" />
+<preference name="phonegap-version" value="cli-9.0.0" />
 <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
 <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
 
