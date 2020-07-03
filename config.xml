@@ -3,6 +3,7 @@
 		version="1.0.5" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="https://phonegap.com/ns/1.0" 
+		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:cdv="http://cordova.apache.org/ns/1.0">
 
 <name>Gema App</name>
@@ -26,6 +27,9 @@
 <allow-intent href="geo:*" />
 <platform name="android">
     <allow-intent href="market:*" />
+    <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+        <application android:usesCleartextTraffic="true" />
+    </edit-config>
     <plugin name="cordova-android-support-gradle-release" source="npm">
         <variable name="ANDROID_SUPPORT_VERSION" value="28.0.0"/>
     </plugin>
@@ -40,8 +44,7 @@
 <plugin name="cordova-plugin-browsersync" source="npm"/>
 
 <preference name="phonegap-version" value="cli-9.0.0" />
-<preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
-<preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
+<preference name="android-minSdkVersion" value="28" />
 
 <icon src="images/icon.png" />
 
