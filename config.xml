@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<widget id="com.example.HS" 
-		version="1.0.0" 
+<widget id="com.lmsoluciones.gemaapp" 
+		version="1.0.5" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="https://phonegap.com/ns/1.0" 
 		xmlns:cdv="http://cordova.apache.org/ns/1.0">
@@ -36,9 +36,10 @@
 <plugin name="cordova-plugin-googlemaps" />
 <plugin name="cordova-plugin-browsersync" />
 
-<preference name="phonegap-version" value="cli-8.1.1" />
+<preference name="phonegap-version" value="cli-9.0.0" />
 <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
 <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
+<preferencia nombre="android-targetSdkVersion" valor="28"/>
 
 <engine name="ios" spec="^5.0.1" />
 <engine name="android" spec="^8.0.0" />
