@@ -39,7 +39,7 @@
 <preference name="phonegap-version" value="cli-9.0.0" />
 <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
 <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU" />
-<preferencia nombre="android-targetSdkVersion" valor="28"/>
+<preference name="android-targetSdkVersion" value="28"/>
 
 <engine name="ios" spec="^5.0.1" />
 <engine name="android" spec="^8.0.0" />
