@@ -562,7 +562,6 @@ $(function () {
 
     function runRecorrido() {
         $("#btnPause").html("<i class='fa fa-pause'></i>");
-        map.setCenter(new google.maps.LatLng(parseFloat(datosRecorrido[0].LATITUD), parseFloat(datosRecorrido[0].LONGITUD)));
         map.setZoom(17);
         recorriendo = true;
         intervaloRecorrido =
