@@ -7,7 +7,31 @@ $(function() {
     Chart.defaults.global.defaultFontColor = '#292b2c';
 
 
-    function getSumTimbradas() {
+    function getDataParams(url, elemt) {
+        $.ajax({
+            url: urlAPI + "/viajes/"+url+"/"+dataUser.idPropietario,
+            type: "GET",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            beforeSend: function (xhr){ 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+            },
+            success: function (res){
+                if(res.data.length > 0){
+                    $("#"+elemt).text(res.data[0].total);
+                }else{
+                    $("#"+elemt).text("-");
+                }
+                return false;
+            },
+            error: function (res){
+                swal.error(res.responseJSON.message);
+                return false;
+            }
+        });
+    }
+
+    function AjaxGraficaSumTimbradas() {
         $.ajax({
             url: urlAPI + "/viajes/getSumTimbradasByCarro/"+dataUser.idPropietario,
             type: "GET",
@@ -65,7 +89,9 @@ $(function() {
     }
 
     
-    getSumTimbradas();
-
+    AjaxGraficaSumTimbradas();
+    getDataParams("getTotalViajesRecaudados", "divAlarmasA");
+    getDataParams("getTotalViajesPerdidos", "divAlarmasB");
+    getDataParams("getTotalTimbradas", "divAlarmasC");
 
 });

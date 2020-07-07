@@ -42,6 +42,7 @@ $(function () {
             data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
                 let fechas = new Array();
@@ -56,6 +57,9 @@ $(function () {
             error: function (res) {
                 swal.error(res.responseJSON.message);
                 return false;
+            },
+            complete: function (res){
+                $("#btnCargar").prop("disabled", false);
             }
         });
     }
@@ -69,6 +73,7 @@ $(function () {
             data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
                 let fechas = new Array();
@@ -83,6 +88,9 @@ $(function () {
             error: function (res) {
                 swal.error(res.responseJSON.message);
                 return false;
+            },
+            complete: function (res){
+                $("#btnCargar").prop("disabled", false);
             }
         });
     }
@@ -96,6 +104,7 @@ $(function () {
             data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val()}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
                 let fechas = new Array();
@@ -112,6 +121,9 @@ $(function () {
             error: function (res) {
                 swal.error(res.responseJSON.message);
                 return false;
+            },
+            complete: function (res){
+                $("#btnCargar").prop("disabled", false);
             }
         });
     }

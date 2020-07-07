@@ -30,6 +30,10 @@ function timeNow() {
     return time;
 }
 
+function toCapitalCase(str){
+    return ((str.charAt(0)).toUpperCase()) + str.toLowerCase().substring(1, str.length);
+}
+
 function imagenRumbo(rumbo, idEvento, velocidad) {
     var url = '../images/markers/';
     var imagen = "";

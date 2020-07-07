@@ -57,6 +57,7 @@ $(function() {
           contentType: 'application/json',
           beforeSend: function (xhr){ 
               xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+              $("#btnCargar").prop("disabled", true);
           },
           success: function (res){
               var rtn = [];
@@ -69,6 +70,9 @@ $(function() {
           error: function (res){
               swal.error(res.responseJSON.message);
               return false;
+          },
+          complete: function (res){
+              $("#btnCargar").prop("disabled", false);
           }
       });
     }

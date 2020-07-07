@@ -20,7 +20,7 @@ $(function() {
             $.each(res.data, function(key, value) {
                 $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
             });
-            AjaxGetViajes();
+            AjaxGetGastos();
             return false;
         },
         error: function (res){
@@ -29,13 +29,13 @@ $(function() {
         }
     });
 
-    function AjaxGetViajes() {
+    function AjaxGetGastos() {
       $.ajax({
-          url: urlAPI + "/viajes/getViajesRecaudados",
+          url: urlAPI + "/gastos/getDescuentosDiarios",
           type: "POST",
           dataType: 'JSON',
           contentType: 'application/json',
-          data: JSON.stringify({fecha: $("#inpFecha").val(), tipo: $("input[name='inpCheckDia']:checked").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
+          data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
           beforeSend: function (xhr){ 
               xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
               $("#btnCargar").prop("disabled", true);
@@ -44,8 +44,7 @@ $(function() {
               var rtn = [];
               $.each(res.data, function(key, value) {
                   rtn.push({val:[{
-                  fecha: value.dfechadia, recaudo: value.rfecharecaudo, codigo: value.Codigo, 
-                  factura: value.factura, bruto: value.Bruto, timbradas: value.Timbradas, viajes: value.Viaje, extemporaneo: value.extemporaneo
+                    fecha: value.fecha, nombre: value.nombre, codigo: value.codigo, valor: value.valor 
                   }]});
               });
               cargarData(rtn);
@@ -79,15 +78,15 @@ $(function() {
             selectionMode: 'none',
             columns: [
                 {
-                  text: 'Ventas', align: 'left', dataField: 'model',
+                  text: 'Gastos', align: 'left', dataField: 'model',
                   cellsRenderer: function (row, column, value, rowData) {
                       var punto = rowData.val;
                       var container = "<div>";
                       for (var i = 0; i < punto.length; i++) {
                           var punto = punto[i];
                           var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
-                          var info = "<div style='background: "+((punto.extemporaneo==1)?("#fffda1"):("#e9ecef"))+"; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
-                          info += "<div class='row'><div class='col-12 textCenter' style='background: white; color: #039be5; font-weight: bold; margin-bottom: 5px'>Recaudo: "+punto.recaudo+"</div><div class='col-6'>Fecha: "+punto.fecha+"</div><div class='col-6'>Vehiculo: "+punto.codigo+"</div><div class='col-6'>Viaje: "+punto.viajes+"</div><div class='col-6' >Bruto: <b>"+punto.bruto+"</b></div><div class='col-6' >Tims: "+punto.timbradas+"</div><div class='col-6'>Factura: "+punto.factura+"</div></div>";
+                          var info = "<div style='background: #e9ecef; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
+                          info += "<div class='row'><div class='col-6' style='margin-bottom: 5px;'>Fecha: "+punto.fecha+"</div><div class='col-6' style='margin-bottom: 5px;'>Vehiculo: "+punto.codigo+"</div><div class='col-6 textCenter fontBold'>"+punto.nombre+"</div><div class='col-6' style='background: white; color: #039be5; font-weight: bold; border-radius: 7pt 0pt 0pt 7pt;'>Valor: <b>"+punto.valor+"</b></div></div>";
                           info += "</div>";
                           item += info;
                           item += "</div>";
@@ -102,7 +101,7 @@ $(function() {
     }
 
     $("#btnCargar").click(function(){
-        AjaxGetViajes();
+        AjaxGetGastos();
     });
 
 

@@ -139,6 +139,7 @@ $(function () {
             contentType: 'application/json',
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                $("#btnCargarConsolidado").prop("disabled", true);
             },
             success: function (response) {
                 var rtn = [];
@@ -157,6 +158,9 @@ $(function () {
             error: function (res) {
                 swal.error(res.responseJSON.message);
                 return false;
+            },
+            complete: function (res){
+                $("#btnCargarConsolidado").prop("disabled", false);
             }
         });
     }  
@@ -172,6 +176,7 @@ $(function () {
             contentType: 'application/json',
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                $("#btnCargarDetalle").prop("disabled", true);
             },
             success: function (response) {
                 var rtn = [];
@@ -193,6 +198,9 @@ $(function () {
             error: function (res) {
                 swal.error(res.responseJSON.message);
                 return false;
+            },
+            complete: function (res){
+                $("#btnCargarDetalle").prop("disabled", false);
             }
         });
     } 
@@ -208,6 +216,7 @@ $(function () {
             data: JSON.stringify({codigo: codigo, fecha1: fecha1, fecha2: fecha2}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                $("#btnCargarRecorrido").prop("disabled", true);
             },
             success: function (response) {
                 datosRecorrido = response.data;
@@ -217,6 +226,9 @@ $(function () {
             error: function (res) {
                 swal.error(res.responseJSON.message);
                 return false;
+            },
+            complete: function (res){
+                $("#btnCargarRecorrido").prop("disabled", false);
             }
         });
     }
