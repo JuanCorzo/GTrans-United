@@ -29,16 +29,17 @@ $(function() {
     });
 
     $.ajax({
-        url: urlAPI + "/vehiculos/getVehiculos/"+dataUser.idPropietario,
-        type: "GET",
+        url: urlAPI + "/vehiculos/getVehiculos",
+        type: "POST",
         dataType: 'JSON',
         contentType: 'application/json',
+        data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
             xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
-                $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
+                $("#inpVehiculo").append("<option value="+value.codigo+"-"+value.empresa+">"+value.codigo+" ("+value.empresaCorto+")</option>");
             });
             AjaxGetVelocidades();
             return false;
@@ -51,10 +52,11 @@ $(function() {
 
     function AjaxGetVelocidades() {
       $.ajax({
-          url: urlAPI + "/tracking/getVelocidadesOpto/"+$("#inpFecha").val()+"/"+$("#inpVehiculo").val()+"/"+$("#inpVelocidad").val(),
-          type: "GET",
+          url: urlAPI + "/tracking/getVelocidades",
+          type: "POST",
           dataType: 'JSON',
           contentType: 'application/json',
+          data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), limit: $("#inpVelocidad").val()}),
           beforeSend: function (xhr){ 
               xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
               $("#btnCargar").prop("disabled", true);

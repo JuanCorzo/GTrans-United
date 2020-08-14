@@ -9,16 +9,17 @@ $(function() {
     // ---------------------------
 
     $.ajax({
-        url: urlAPI + "/vehiculos/getVehiculos/"+dataUser.idPropietario,
-        type: "GET",
+        url: urlAPI + "/vehiculos/getVehiculos",
+        type: "POST",
         dataType: 'JSON',
         contentType: 'application/json',
+        data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
             xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
-                $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
+                $("#inpVehiculo").append("<option value="+value.codigo+"-"+value.empresa+">"+value.codigo+" ("+value.empresaCorto+")</option>");
             });
             AjaxGetViajes();
             return false;
@@ -35,7 +36,7 @@ $(function() {
           type: "POST",
           dataType: 'JSON',
           contentType: 'application/json',
-          data: JSON.stringify({fecha: $("#inpFecha").val(), tipo: $("input[name='inpCheckDia']:checked").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
+          data: JSON.stringify({fecha: $("#inpFecha").val(), tipo: $("input[name='inpCheckDia']:checked").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
           beforeSend: function (xhr){ 
               xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
               $("#btnCargar").prop("disabled", true);

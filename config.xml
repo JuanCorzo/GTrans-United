@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<widget id="com.lmsoluciones.gemaapp" 
+<widget id="com.lmsoluciones.gtransunited" 
 		version="1.0.8" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="https://phonegap.com/ns/1.0" 
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:cdv="http://cordova.apache.org/ns/1.0">
 
-<name>Gema App</name>
+<name>GTrans United</name>
 
 <description>
-    Gema App, es una aplicacion creada para los propietarios de buses urbanos de empresas con el Sistema de Gestion GEMA, En esta app podras ver informacion en tiempo real de las ventas, recorridos, alarmas e informacion general de todos tus buses.
+    GTrans United, es una aplicacion creada para los propietarios de buses urbanos de empresas con el Sistema de Gestion GEMA, En esta app podras ver informacion en tiempo real de las ventas, recorridos, alarmas e informacion general de todos tus buses.
 </description>
 
 <author email="soporte@lmsoluciones.co" href="http://www.lmsoluciones.co">
@@ -45,6 +45,6 @@
 <preference name="phonegap-version" value="cli-9.0.0" />
 <preference name="android-minSdkVersion" value="28" />
 
-<icon src="images/icon.png" />
+<icon src="images/logo.png" />
 
 </widget>

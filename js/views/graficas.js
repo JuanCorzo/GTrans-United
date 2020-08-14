@@ -13,16 +13,17 @@ $(function () {
     // ---------------------------
 
     $.ajax({
-        url: urlAPI + "/vehiculos/getVehiculos/"+dataUser.idPropietario,
-        type: "GET",
+        url: urlAPI + "/vehiculos/getVehiculos",
+        type: "POST",
         dataType: 'JSON',
         contentType: 'application/json',
+        data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
             xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
-                $("#inpVehiculo").append("<option value="+value.codigo+">"+value.codigo+"</option>");
+                $("#inpVehiculo").append("<option value="+value.codigo+"-"+value.empresa+">"+value.codigo+" ("+value.empresaCorto+")</option>");
             });
             AjaxGraficaVentasDiarias();
             return false;
@@ -39,19 +40,43 @@ $(function () {
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
-            data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
+            data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
                 $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
                 let fechas = new Array();
-                let data =  new Array();
+                let datas =  new Array();
                 $.each(response.data, function(index, value) {
-                  fechas.push(value.fecha);
-                  data.push(value.total);
+                    let data = [];
+                    $.each(value.data, function(indexV, valueV) {
+                        if(index==0) fechas.push(valueV.fecha);
+                        data.push(valueV.total);
+                    });
+                    datas.push({empresa: value.empresa, data: data});
                 });
-                cargarGraficaTimbradas(fechas, data);
+
+                let datasets = [];
+                $.each(datas, function(indexD, valueD) {
+                    let color = getRandomColor();
+                    datasets.push({
+                      label: valueD.empresa,
+                      lineTension: 0.3,
+                      fill: false,
+                      borderColor: color.normal,
+                      pointRadius: 5,
+                      pointBackgroundColor: color.normal,
+                      pointBorderColor: color.opaco,
+                      pointHoverRadius: 5,
+                      pointHoverBackgroundColor: color.normal,
+                      pointHitRadius: 50,
+                      pointBorderWidth: 2,
+                      data: valueD.data,
+                    });
+                });
+
+                cargarGraficaTimbradas(fechas, datasets);
                 return false;
             },
             error: function (res) {
@@ -70,19 +95,43 @@ $(function () {
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
-            data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), idPropietario: dataUser.idPropietario}),
+            data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
                 $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
                 let fechas = new Array();
-                let data =  new Array();
+                let datas =  new Array();
                 $.each(response.data, function(index, value) {
-                  fechas.push(value.fecha);
-                  data.push(value.total);
+                    let data = [];
+                    $.each(value.data, function(indexV, valueV) {
+                        if(index==0) fechas.push(valueV.fecha);
+                        data.push(valueV.total);
+                    });
+                    datas.push({empresa: value.empresa, data: data});
                 });
-                cargarGraficaCombustible(fechas, data);
+
+                let datasets = [];
+                $.each(datas, function(indexD, valueD) {
+                    let color = getRandomColor();
+                    datasets.push({
+                      label: valueD.empresa,
+                      lineTension: 0.3,
+                      fill: false,
+                      borderColor: color.normal,
+                      pointRadius: 5,
+                      pointBackgroundColor: color.normal,
+                      pointBorderColor: color.opaco,
+                      pointHoverRadius: 5,
+                      pointHoverBackgroundColor: color.normal,
+                      pointHitRadius: 50,
+                      pointBorderWidth: 2,
+                      data: valueD.data,
+                    });
+                });
+
+                cargarGraficaCombustible(fechas, datasets);
                 return false;
             },
             error: function (res) {
@@ -128,26 +177,13 @@ $(function () {
         });
     }
 
-    function cargarGraficaTimbradas(fechas, data){
+    function cargarGraficaTimbradas(fechas, datasets){
         var ctx = document.getElementById("myAreaChart");
         myLineChart = new Chart(ctx, {
           type: 'line',
           data: {
             labels: fechas,
-            datasets: [{
-              label: "Timbs.",
-              lineTension: 0.3,
-              backgroundColor: "rgba(0,123,255,0.2)",
-              borderColor: "rgba(0,123,255,0.7)",
-              pointRadius: 5,
-              pointBackgroundColor: "rgba(0,123,255,1)",
-              pointBorderColor: "rgba(0,123,255,0.7)",
-              pointHoverRadius: 5,
-              pointHoverBackgroundColor: "rgba(2,117,216,1)",
-              pointHitRadius: 50,
-              pointBorderWidth: 2,
-              data: data,
-            }],
+            datasets: datasets,
           },
           options: {
             title: {
@@ -178,7 +214,7 @@ $(function () {
               }],
             },
             legend: {
-              display: false
+              position: "bottom"
             }
           }
         });
@@ -236,26 +272,13 @@ $(function () {
         });
     }
 
-    function cargarGraficaCombustible(fechas, data){
+    function cargarGraficaCombustible(fechas, datasets){
         var ctx = document.getElementById("myAreaChart");
         myLineChart = new Chart(ctx, {
           type: 'line',
           data: {
             labels: fechas,
-            datasets: [{
-              label: "Combustible",
-              lineTension: 0.3,
-              backgroundColor: "rgba(0,123,255,0.2)",
-              borderColor: "rgba(0,123,255,0.7)",
-              pointRadius: 5,
-              pointBackgroundColor: "rgba(0,123,255,1)",
-              pointBorderColor: "rgba(0,123,255,0.7)",
-              pointHoverRadius: 5,
-              pointHoverBackgroundColor: "rgba(2,117,216,1)",
-              pointHitRadius: 50,
-              pointBorderWidth: 2,
-              data: data,
-            }],
+            datasets: datasets,
           },
           options: {
             title: {
@@ -293,7 +316,7 @@ $(function () {
               }],
             },
             legend: {
-              display: false
+              position: "bottom"
             }
           }
         });

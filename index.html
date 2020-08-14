@@ -14,43 +14,60 @@
 
   </head>
 
-  <body class="backgroundImage">
+  <body class="width100porciento backgroundWhite hiddenScrollX">
 
+    <div class="container paddingLaterales25px" style="margin-top: 10%">
 
-    <div class="container paddingLaterales25px" style="margin-top: 15%">
+      <div class="textCenter">
+        <img src="images/logo_trans.png" style="width: 30%">
+      </div>
+      <h3 class="textCenter fontSize15px marginTop10px">GTrans la aliada de los propietarios</h3>
 
-      <h3 class="textCenter fontSize40px colorWhite">Bienvenido!</h3>
-      <h3 class="textCenter fontSize15px colorWhite">Gema App la aliada de los propietarios</h3>
-
-      <div class="card card-login mx-auto marginTop20px" style="background: #ffffffcf">
-        <div class="card-body">
+      <div class="card card-login mx-auto marginTop20px">
+        <div id="cardLogin" class="card-body paddingTop10">
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="inputCedula" class="form-control textCenter fontSize20px" placeholder="Cedula" autofocus="autofocus" autocomplete="off" value="">
-                <label for="inputCedula" class="textCenter fontSize15px">Cedula</label>
+                <input type="text" id="inputCedula" class="form-control textCenter fontSize20px inputBorderBottom" placeholder="Cedula" autofocus="autofocus" autocomplete="off" value="22547313">
+                <label for="inputCedula" class="textCenter fontSize18px">Cedula</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control textCenter fontSize20px" placeholder="Contraseña" autocomplete="new-password" value="">
-                <label for="inputPassword" class="textCenter fontSize15px">Contraseña</label>
+                <input type="password" id="inputPassword" class="form-control textCenter fontSize20px inputBorderBottom" placeholder="Contraseña" autocomplete="new-password" value="22547313">
+                <label for="inputPassword" class="textCenter fontSize18px">Contraseña</label>
               </div>
             </div>
-            <a class="btn btn-dark btn-block colorWhite" id="btnlogin">Ingresar</a>
+            <a class="btn btn-primary btn-block colorWhite" id="btnlogin">Ingresar</a>
+        </div>
+
+        <!-- ***************************** -->
+
+        <div id="cardEmpresa" class="card-body displayNone">
+            <label for="inputCedula" class="textCenter fontSize18px width100porciento">Seleccione una empresa</label>
+            <br>
+            <label class="fontSize13px textCenter width100porciento"><i>Con la suscripcion <b>PLUS</b> puede consultar todas las empresas al mismo tiempo</i></label>
+            <select class="form-control textCenter fontSize20px inputBorderBottom" id="inputEmpresa">
+            </select>
+            <a class="btn btn-primary btn-block colorWhite marginTop15px" id="btnSelectEmpresa">Ingresar</a>
         </div>
       </div>
-      <h6 class="textCenter marginTop10px"><a class="fontSize13px colorWhite" href="mailto:soporte@lmsoluciones.co?Subject=Crear%20/%20Asignar%20Usuario%20Gema%20App"><small>No tienes usuario / Olvido la contraseña ?</small></a></h6>
+      <h6 class="textCenter marginTop10px"><a class="fontSize13px" href="mailto:soporte@lmsoluciones.co?Subject=Crear%20/%20Asignar%20Usuario%20GTrans%20United"><small>No tienes usuario / Olvido la contraseña ?</small></a></h6>
     </div>
 
 
+    <footer id="footerLogin" style="position: absolute; width: 100%; bottom: 0px;">
+        <div id="divLogoBig">
+          <div class="centerDiv">
+            <a class="backgroundWhite aLogoBig" href="#">
+              <h4 class="textCenter fontSize12px">Creado Por</h4>
+              <img src="images/lm.png" class="imgLogoBig">
+            </a>
+          </div>  
+        </div>
 
-    <footer id="footerLogin" style="position: absolute; width: 100%; bottom: 50px;">
-        <h4 class="textCenter fontSize13px colorGray">Creado Por</h4>
-        <div class="centerDiv">
-          <a class="backgroundWhite aLogoBig" href="#">
-            <img src="images/lm.png" class="imgLogoBig">
-          </a>
-        </div>  
+        <svg class="svgWave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="height: 250px">
+          <path fill="#007bff" fill-opacity="1" d="M0,32L48,74.7C96,117,192,203,288,202.7C384,203,480,117,576,85.3C672,53,768,75,864,112C960,149,1056,203,1152,197.3C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
     </footer>
     
 

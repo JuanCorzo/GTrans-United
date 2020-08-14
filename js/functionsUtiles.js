@@ -1,8 +1,6 @@
 
 var urlAPI = "http://192.190.42.212:3000";
-var urlSocketOpto = "ws://192.190.43.26:9001";
-
-
+var urlSocketOpto = "ws://192.190.43.26:9007";
 
 
 var aggregatesRender = function (aggregates) {
@@ -192,3 +190,20 @@ var swal = {
     }
 }
 
+var lastRandomColor = null;
+function getRandomColor(){
+    let colors = [
+        {normal: "#69f0ae", opaco: "rgba(75,192,192,0.5)"},
+        {normal: "#FF6384", opaco: "rgba(255,99,132,0.5)"},
+        {normal: "#FFCD56", opaco: "rgba(255,205,86,0.5)"},
+        {normal: "#33C5E4", opaco: "rgba(51,197,228,0.5)"},
+        {normal: "#D500F9", opaco: "rgba(213,0,249,0.5)"},
+        {normal: "#FF7043", opaco: "rgba(255,112,67,0.5)"},
+    ];
+    let randomPos = Math.floor(Math.random() * colors.length);
+    while (lastRandomColor == randomPos) {
+        randomPos = Math.floor(Math.random() * colors.length);
+    }
+    lastRandomColor = randomPos;
+    return colors[randomPos];
+}

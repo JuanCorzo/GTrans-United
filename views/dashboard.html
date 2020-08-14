@@ -32,40 +32,45 @@
           <!-- Icon Cards-->
           <div class="row">
               <div class="col-6 paddingR7">
-                <div class="card backgroundWhiteClaro o-hidden">
-                  <div class="card-body">
-                    <div class="card-body-icon">
-                      <i class="fas fa-tasks colorBlue"></i>
-                    </div>
-                    <div class=""><span class="fontSize25px" id="divAlarmasA">-</span> <br> <label class="margin0 fontSize15px">Viajes Relizados</label></div>
+                <div class="card o-hidden" style="border-radius: 10px;">
+                  <div class="card-body" style="padding: 0px">
+                    <label class="margin0 fontSize25px width100porciento text-center" id="divAlarmasA" style="padding-bottom: 4px; padding-top: 2px;">-</label> 
+                    <br> 
+                    <label class="fontSize15px width100porciento text-center" style="background: #33c5e4;padding: 10px;color: white;margin: 0px;">Total Timbradas</label>
                   </div>
                 </div>
               </div>
               <div class="col-6 paddingL7">
-                <div class="card backgroundWhiteClaro o-hidden">
-                  <div class="card-body">
-                    <div class="card-body-icon">
-                      <i class="fas fa-bell colorBlue"></i>
-                    </div>
-                    <div class=""><span class="fontSize25px" id="divAlarmasB">-</span> <br> <label class="margin0 fontSize15px">Viajes Perdidos</label></div>
+                <div class="card o-hidden" style="border-radius: 10px;">
+                  <div class="card-body" style="padding: 0px;">
+                    <label class="margin0 fontSize25px width100porciento text-center" id="divAlarmasB" style="padding-bottom: 4px; padding-top: 2px;">-</label> 
+                    <br> 
+                    <label class="fontSize15px width100porciento text-center" style="background: #33c5e4;padding: 10px;color: white;margin: 0px;">Total Descuentos</label>
                   </div>
                 </div>
               </div>
+            
               <div class="col-12 marginTop15px">
-                <div class="card backgroundWhiteClaro o-hidden">
-                  <div class="card-body">
-                    <div class="card-body-icon-big">
-                      <i class="fas fa-fw fa-coins colorYellow"></i>
+                <div class="card o-hidden">
+                  <div class="card-body" style="padding: 7px 20px 9px 20px;">
+                    <div class="card-body-icon" style="top: -25px;">
+                      <i class="fas fa-fw fa-coins colorYellow" style="font-size: 50px"></i>
                     </div>
-                    <div class=""><span class="fontSize25px" id="divAlarmasC">-</span> <br> <label class="margin0 fontSize15px">Timbradas Recaudadas</label></div>
+                    <label class="margin0 fontSize15px width100porciento text-center" style="font-weight: 500;">Ultimo Recaudo:</label>
+                    <br>
+                    <label class="margin0 fontSize18px text-center width100porciento" id="divAlarmasC">-</label>
                   </div>
                 </div>
               </div>
           </div>
 
           <div class="card mb-3 marginTop15px">
-              <div class="card-header">
-                <i class="fas fa-chart-area"></i> Data grafica</div>
+              <div class="card-body">
+                  <canvas id="myAreaChart2" class="chartResize" width="100%" height="80%"></canvas>
+              </div>
+          </div>
+
+          <div class="card mb-3 marginTop15px">
               <div class="card-body">
                   <canvas id="myAreaChart" class="chartResize" width="100%" height="100%"></canvas>
               </div>			

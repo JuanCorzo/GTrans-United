@@ -561,11 +561,13 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .aLogoBig{
-  width: 73px; 
-  height: 73px; 
-  border-radius: 50%; 
-  text-align: center; 
-  border: 2px solid gray; 
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  text-align: center;
+  border: 4px solid #007bff;
+  padding: 15px;
+  padding-top: 19px;
 }
 
 .imgLogo{
@@ -576,10 +578,8 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .imgLogoBig{
-  width: 55px; 
-  height: 50px; 
-  margin-left: 3px; 
-  margin-top: 15px;
+  width: 50px; 
+  height: 40px;
 }
 
 .jqx-grid-column-header{
@@ -629,6 +629,10 @@ body.sidebar-toggled footer.sticky-footer {
     margin-bottom: 2px;
     font-size: 14px;
     font-weight: 600;
+}
+
+.fontSize12px{
+  font-size: 12px;
 }
 
 .fontSize13px{
@@ -714,4 +718,53 @@ hr.styleHR {
 .fontBold{
   font-weight: bold;
 }
-
+.inputBorderBottom{
+  border: none;
+  border-bottom: 3px solid #007bff;
+}
+input:focus, select:focus, button:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+@keyframes animateWave {
+  0% {
+    transform: scale(1,0);
+  }
+  100% {
+    transform: scale(1,1);
+  }
+}
+.svgWave {
+  display: block;
+  transform-origin: bottom;
+  animation: animateWave 2000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+#divLogoBig{
+  position: absolute; 
+  bottom: 50px;
+  width: 100%; 
+  z-index: 100;
+  animation: animateLogoBig 2000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+@keyframes animateLogoBig {
+  0% {bottom: -200px;}
+  100% {bottom: 50px;}
+}
+.hiddenScrollX{
+  overflow-x: hidden;
+}
+.classAnimationBodyLogin{
+  position: absolute;
+  left: calc((1120px - 100vw)*-1); /* 1120 ES EL TAMAÑO DEL SVG DE OLA */
+  animation: animateBodyLogin 3s infinite alternate linear;
+}
+@keyframes animateBodyLogin {
+  0% {
+    left: 0px;
+    opacity: 1;
+  }
+  100% {
+    left: calc((1120px - 100vw)*-1);
+    opacity: 0;
+  }
+}
