@@ -42,7 +42,7 @@ $(function () {
         },
         success: function (res){
             $.each(res.data, function(key, value) {
-                $("#inpVehiculoRecorrido").append("<option value="+value.codigo+"-"+value.empresa+">"+value.codigo+" ("+value.empresaCorto+")</option>");
+                $("#inpVehiculoRecorrido").append("<option value="+value.codigo+"-"+value.idEmpresa+">"+value.codigo+" ("+value.empresaCorto+")</option>");
             });
             return false;
         },
@@ -68,7 +68,7 @@ $(function () {
                 $("#inpVehiculoHidden").val(vehiculo);
                 let data = response.data[0];
                 
-                $("#spanVehiculo").text("(" + data.Codigo + ")");
+                $("#spanVehiculo").text("(" + data["Codigo"] + ")");
                 $("#inpConductor").val((data["Conductor"]==null)?"N/A":data["Conductor"]);
                 $("#inpTurno").val(data["Turno"]);
                 $("#inpRuta").val(data["Ruta"]);
@@ -83,13 +83,14 @@ $(function () {
             }
         });
     }
-/*
-    function getDataVehiculoTracking(codigo) {
+
+    function getDataVehiculoTracking(vehiculo) {
         $.ajax({
-            url: urlAPI + "/tracking/getUltimaPosicionOpto/"+codigo,
-            type: "GET",
+            url: urlAPI + "/tracking/getUltimaPosicion",
+            type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
+            data: JSON.stringify({vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
             },
@@ -98,7 +99,7 @@ $(function () {
                 let data = response.data[0];
 
                 $("#inpVelocidad").val(data["VelocidadKPH"]);
-                $("#inpUltimoDato").val(data["fecha"]);
+                $("#inpUltimoDato").val(data["FechaHora"]);
                 $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+data["Latitude"]+","+data["longitude"]+"&key=AIzaSyBvrBF3dUzhRUxM4C3Zh_OMAms0-gigDOU",{},  function (geoData){   
                     $("#inpDireccion").val(geoData.results[0].formatted_address);
                 });
@@ -111,75 +112,27 @@ $(function () {
         });
     }
 
-    function AjaxDatosGrillaConsolidado(codigo) {
-        $("#lblTotTimConsolidado").text("Timbs: -");
-        $("#lblTotBloqConsolidado").text("Bloqs: -");
+    function AjaxDatosGrillaDetalle(vehiculo) {
         $.ajax({
-            url: urlAPI + "/tracking/getConsolidadoMovilidadOpto/"+$("#inpFechaConsolidado").val()+"/"+codigo,
-            type: "GET",
+            url: urlAPI + "/tracking/getDetalleMovilidad",
+            type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
-            beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
-                $("#btnCargarConsolidado").prop("disabled", true);
-            },
-            success: function (response) {
-                var rtn = [];
-                let timbs = 0;
-                let bloqs = 0;
-                $.each(response.data, function(key, value) {
-                    timbs += value.pasajeros_automatico;
-                    bloqs += value.BLOQUEOS;
-                    rtn.push({val:[{fecha: value.FECHA_FORMAT, tim: value.pasajeros_automatico, bloqueos: value.BLOQUEOS}]});
-                });
-                $("#lblTotTimConsolidado").text("Timbs: " + timbs);
-                $("#lblTotBloqConsolidado").text("Bloqs: " + bloqs);
-                crearGrillaConsolidado(rtn);
-                return false;
-            },
-            error: function (res) {
-                swal.error(res.responseJSON.message);
-                return false;
-            },
-            complete: function (res){
-                $("#btnCargarConsolidado").prop("disabled", false);
-            }
-        });
-    }  
-
-    function AjaxDatosGrillaDetalle(codigo) {
-        $("#lblTotSubDetalle").text("Sub.: -");
-        $("#lblTotBajDetalle").text("Baj.: -");
-        $("#lblTotBloqDetalle").text("Bloqs: -");
-        $.ajax({
-            url: urlAPI + "/tracking/getDetalleMovilidadOpto/"+$("#inpFechaDetalle").val()+"/"+codigo,
-            type: "GET",
-            dataType: 'JSON',
-            contentType: 'application/json',
+            data: JSON.stringify({fecha: $("#inpFechaDetalle").val(), vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
                 $("#btnCargarDetalle").prop("disabled", true);
             },
             success: function (response) {
                 var rtn = [];
-                let subs = 0;
-                let bajs = 0;
-                let bloqs = 0;
                 $.each(response.data, function(key, value) {
-                    subs += value.SUBIDAS;
-                    bajs += value.BAJADAS;
-                    bloqs += value.BLOQUEOS;
-                    rtn.push({val:[{fecha: value.FECHA_HORA, subs: value.SUBIDAS, bajas: value.BAJADAS, bloqueos: value.BLOQUEOS}]});
+                    rtn.push({val:[{fecha: value.FechaHora, descripcion: value.Descripcion, 
+                                    punto: value.PuntoVirtual, registradora: value.Registradora}]});
                 });
-                $("#lblTotSubDetalle").text("Sub.: " + subs);
-                $("#lblTotBajDetalle").text("Baj.: " + bajs);
-                $("#lblTotBloqDetalle").text("Bloqs: " + bloqs);
                 crearGrillaDetalle(rtn);
-                return false;
             },
             error: function (res) {
                 swal.error(res.responseJSON.message);
-                return false;
             },
             complete: function (res){
                 $("#btnCargarDetalle").prop("disabled", false);
@@ -187,15 +140,13 @@ $(function () {
         });
     } 
 
-    function AjaxRecorrido(fecha, hora1, hora2, codigo) {
-        let fecha1 = fecha + " " + hora1;
-        let fecha2 = fecha + " " + hora2;
+    function AjaxRecorrido(fecha, hora1, hora2, vehiculo) {
         $.ajax({
-            url: urlAPI + "/tracking/getRecorridoOpto",
+            url: urlAPI + "/tracking/getRecorrido",
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
-            data: JSON.stringify({codigo: codigo, fecha1: fecha1, fecha2: fecha2}),
+            data: JSON.stringify({fecha: fecha, hora1: hora1, hora2: hora2, vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
                 xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
                 $("#btnCargarRecorrido").prop("disabled", true);
@@ -203,18 +154,15 @@ $(function () {
             success: function (response) {
                 datosRecorrido = response.data;
                 recorrido();
-                return false;
             },
             error: function (res) {
                 swal.error(res.responseJSON.message);
-                return false;
             },
             complete: function (res){
                 $("#btnCargarRecorrido").prop("disabled", false);
             }
         });
     }
-*/
 
     function limpiarMarkers() {
         $.each(markers, function (index, i) {
@@ -263,7 +211,6 @@ $(function () {
         google.maps.event.addListener(marker, 'click', function () {
             getDataVehiculo(codigo+"-"+empresa);
             getDataVehiculoTracking(codigo+"-"+empresa);
-            AjaxDatosGrillaConsolidado(codigo+"-"+empresa);
             AjaxDatosGrillaDetalle(codigo+"-"+empresa);
             $("#modalDetalle").modal();
         })
@@ -294,46 +241,6 @@ $(function () {
         }, 10000);
     }
 
-    function crearGrillaConsolidado(datos){
-        var source = {
-            localData: datos,
-            dataType: "array"
-        };
-        dataAdapter = new $.jqx.dataAdapter(source); 
-        $("#gridConsolidados").jqxDataTable({
-            width: '99.5%',
-            theme: 'material', 
-            source: dataAdapter,
-            sortable: false,
-            pageable: true,
-            pageSize: 20,
-            pagerButtonsCount: 5,
-            enableHover: false,
-            selectionMode: 'none',
-            columns: [
-                  {
-                      text: 'Ventas', align: 'left', dataField: 'model',
-                      cellsRenderer: function (row, column, value, rowData) {
-                          var punto = rowData.val;
-                          var container = "<div>";
-                          for (var i = 0; i < punto.length; i++) {
-                              var punto = punto[i];
-                              var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
-                              var info = "<div style='background: #E9ECEF; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
-                              info += "<div class='row'><div class='col-12 col-sm-6 textCenter' style='font-weight: bold; margin-bottom: 5px'>"+punto.fecha+"</div><div class='col-6 col-sm-3'>Timbs: "+punto.tim+"</div><div class='col-6 col-sm-3' style='background: white; color: #039be5; font-weight: bold; border-radius: 7pt 0pt 0pt 7pt;'>Bloqs: "+punto.bloqueos+"</div></div>";
-                              info += "</div>";
-                              item += info;
-                              item += "</div>";
-                              container += item;
-                          }
-                          container += "</div>";
-                          return container;
-                      }
-                  }
-            ]
-        });
-    }
-
     function crearGrillaDetalle(datos){
         var source = {
             localData: datos,
@@ -359,8 +266,8 @@ $(function () {
                           for (var i = 0; i < punto.length; i++) {
                               var punto = punto[i];
                               var item = "<div style='width: 100%; overflow: hidden; white-space: nowrap;'>";
-                              var info = "<div style='background: #E9ECEF; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
-                              info += "<div class='row'><div class='col-12 textCenter' style='background: white; color: #039be5; font-weight: bold; margin-bottom: 5px'>"+punto.fecha+"</div><div class='col-4 textCenter'>Subs.: "+punto.subs+"</div><div class='col-4 textCenter'>Bajs.: "+punto.bajas+"</div><div class='col-4 textCenter'>Bloqs: "+punto.bloqueos+"</div></div>";
+                              var info = "<div style='background: "+((punto.descripcion=="RG")?("#fffda1"):("#e9ecef"))+"; margin: 5px; margin-left: 10px; margin-bottom: 3px; padding: 10px 15px; border-radius: 10pt; font-size: 15px'>";
+                              info += "<div class='row'><div class='col-12 textCenter' style='background: white; color: #039be5; font-weight: bold; margin-bottom: 5px'>"+punto.fecha+"</div><div class='col-7 textCenter'>"+((punto.punto=="N/A")?"PASAJERO":punto.punto)+"</div><div class='col-5 textCenter'>Reg.: "+punto.registradora+"</div></div>";
                               info += "</div>";
                               item += info;
                               item += "</div>";
@@ -393,19 +300,21 @@ $(function () {
         ocultarIconsRecorridos();
         $("#inpVehiculo").val("");
     });
-/*
+
     var indexPos = 0;
     function recorrido() {
         if (datosRecorrido.length == 0) {
             swal.error("No hay datos para mostrar");
-            limpiarRecorrido();
+            if (markerRecorrido != null) {
+                limpiarRecorrido();
+            }
             return false;
         } else {
             if (markerRecorrido != null) {
                 limpiarRecorrido();
             }
             $.each(datosRecorrido, function (index, dato) {
-                poliRecorrido.push({lat: parseFloat(datosRecorrido[index].LATITUD), lng: parseFloat(datosRecorrido[index].LONGITUD)})
+                poliRecorrido.push({lat: parseFloat(datosRecorrido[index].latitud), lng: parseFloat(datosRecorrido[index].longitud)})
             });
 
             polilineaRecorrido = new google.maps.Polyline({
@@ -418,7 +327,7 @@ $(function () {
             polilineaRecorrido.setMap(map);
 
             markerRecorrido = new google.maps.Marker({
-                position: {lat: parseFloat(datosRecorrido[0].LATITUD), lng: parseFloat(datosRecorrido[0].LONGITUD)},
+                position: {lat: parseFloat(datosRecorrido[0].latitud), lng: parseFloat(datosRecorrido[0].longitud)},
                 icon: '../images/markers/SinRuta/1.svg',
                 label: {
                   text: datosRecorrido[0].codigo,
@@ -438,7 +347,7 @@ $(function () {
             runRecorrido();
         }
     }
-*/
+
     function runRecorrido() {
         $("#btnPause").html("<i class='fa fa-pause'></i>");
         map.setZoom(17);
@@ -456,8 +365,8 @@ $(function () {
     }
 
     function moverMarkerRecorrido() {
-        markerRecorrido.setPosition(new google.maps.LatLng(parseFloat(datosRecorrido[indexPos].LATITUD), parseFloat(datosRecorrido[indexPos].LONGITUD)));
-        map.setCenter(new google.maps.LatLng(parseFloat(datosRecorrido[indexPos].LATITUD), parseFloat(datosRecorrido[indexPos].LONGITUD)));
+        markerRecorrido.setPosition(new google.maps.LatLng(parseFloat(datosRecorrido[indexPos].latitud), parseFloat(datosRecorrido[indexPos].longitud)));
+        map.setCenter(new google.maps.LatLng(parseFloat(datosRecorrido[indexPos].latitud), parseFloat(datosRecorrido[indexPos].longitud)));
     }
 
     $("#btnPause").click(function () {
@@ -512,17 +421,8 @@ $(function () {
         buscarMarker($("#inpVehiculo").val());
     });
 
-    $("#btnCargarConsolidado").click(function () {
-        AjaxDatosGrillaConsolidado($("#inpVehiculoHidden").val());
-    });
-
     $("#btnCargarDetalle").click(function () {
         AjaxDatosGrillaDetalle($("#inpVehiculoHidden").val());
-    });
-
-    $("#aTabConsolidado").click(function () {
-        $('#gridConsolidados').jqxDataTable({width: $('#gridConsolidados').jqxDataTable('width') - 1 });
-        $('#gridConsolidados').jqxDataTable({width: $('#gridConsolidados').jqxDataTable('width') + 1 });
     });
 
     $("#aTabDetalle").click(function () {

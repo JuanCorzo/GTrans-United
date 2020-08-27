@@ -50,11 +50,9 @@ $(function() {
                   }]});
               });
               cargarData(rtn);
-              return false;
           },
           error: function (res){
               swal.error(res.responseJSON.message);
-              return false;
           },
           complete: function (res){
               $("#btnCargar").prop("disabled", false);

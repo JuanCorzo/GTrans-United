@@ -77,11 +77,9 @@ $(function () {
                 });
 
                 cargarGraficaTimbradas(fechas, datasets);
-                return false;
             },
             error: function (res) {
                 swal.error(res.responseJSON.message);
-                return false;
             },
             complete: function (res){
                 $("#btnCargar").prop("disabled", false);
@@ -132,11 +130,9 @@ $(function () {
                 });
 
                 cargarGraficaCombustible(fechas, datasets);
-                return false;
             },
             error: function (res) {
                 swal.error(res.responseJSON.message);
-                return false;
             },
             complete: function (res){
                 $("#btnCargar").prop("disabled", false);
@@ -165,11 +161,9 @@ $(function () {
                   dataR.push(value.promRuta);
                 });
                 cargarGraficaPromedios(fechas, dataV, dataR);
-                return false;
             },
             error: function (res) {
                 swal.error(res.responseJSON.message);
-                return false;
             },
             complete: function (res){
                 $("#btnCargar").prop("disabled", false);

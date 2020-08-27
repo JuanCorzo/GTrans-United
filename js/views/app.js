@@ -37,6 +37,9 @@ $(function() {
 			case "MenuViajes":
 			    cargarVistaIframe("viajes.html");
 			    break;
+			case "MenuNovedades":
+			    cargarVistaIframe("novedades.html");
+			    break;
 			case "MenuGastos":
 			    cargarVistaIframe("gastos.html");
 			    break;

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
+
+    <title>NOVEDADES</title>
+
+    <link href="../libs/bootstrap.css" rel="stylesheet">
+    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" rel="stylesheet">
+    <link href="https://jqwidgets.com/public/jqwidgets/styles/jqx.material.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <div id="wrapper">
+      <div id="content-wrapper">
+
+        <div class="container-fluid" style="height: 100%">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb marginBottom10px">
+              <li class="breadcrumb-item">
+                <a href="#">Inicio</a>
+              </li>
+              <li class="breadcrumb-item active">Novedades</li>
+          </ol>
+          
+          <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#tabGeneral" role="tab" aria-controls="tabGeneral" aria-selected="true">Vista General</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tabDetalle" role="tab" aria-controls="tabDetalle" aria-selected="false" id="aTabDetalle">Detalle</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tabGeneral">
+                
+                <div class="card mb-3 marginTop15px">
+                    <div class="card-body">
+                        <div style="min-height: 259px">
+                          <canvas id="myAreaChart" class="chartResize" width="100%" height="90%"></canvas>
+                        </div>
+                        
+                        <button type="button" class="btn btn-default width100porciento inputSmall marginTop15px" id="btnVerDetalles"><i class="fas fa-search"></i> Ver Detalles</button>
+                        
+                        <label class="width100porciento textCenter marginTop5px"><small>* Se consultaron datos desde <br> 10 dias atras a la fecha de hoy</small></label>
+                        
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="tabDetalle">
+
+                <div class="row marginTop15px">
+                  <div class="col-6 marginTop5px paddingR7">
+                      <input type="date" class="form-control inputSmall input-sm" id="inpFecha">
+                  </div>
+                  <div class="col-6 marginTop5px paddingL7">
+                      <div class="input-group">
+                          <div class="input-group-prepend inputSmallSinPad">
+                            <div class="input-group-text fontSize14px paddingLaterales10px">Veh.: </div>
+                          </div>
+                          <select class="form-control input-sm inputSmall" id="inpVehiculo">
+                              <option value="N/A">TODOS</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-12 marginTop5px">
+                    <button type="button" class="btn btn-primary width100porciento inputSmall" id="btnCargar">
+                      <i class="fas fa-search"></i> Cargar</button>
+                  </div>
+                </div>
+
+                <div class="marginTop10px">
+                  <div id="gridDatos"></div> 
+                </div>
+              
+                <label class="width100porciento textCenter marginTop5px"><small>* Se consultaran datos desde <br> 10 dias atras de la fecha seleccionada</small></label>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+
+    <script src="../libs/jquery.js"></script>
+    <script src="../libs/bootstrap.js"></script>
+    <script src="../libs/jquery.easing.js"></script>
+    <script src="../libs/sweetalert2.js"></script>
+
+    <script src="../libs/jqx-all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script src="../js/scripts.js"></script>
+    <script src="../js/functionsUtiles.js"></script>
+    <script src="../js/views/novedades.js"></script>
+
+
+  </body>
+
+</html>

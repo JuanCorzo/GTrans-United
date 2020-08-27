@@ -67,11 +67,9 @@ $(function() {
                   rtn.push({val:[{fecha: value.fechaFormat, latitud: (String(value.latitud).substr(0,10)), longitud: (String(value.longitud).substr(0,10)), velocidad: value.velocidad}]});
               });
               cargarData(rtn);
-              return false;
           },
           error: function (res){
               swal.error(res.responseJSON.message);
-              return false;
           },
           complete: function (res){
               $("#btnCargar").prop("disabled", false);

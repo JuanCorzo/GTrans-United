@@ -129,7 +129,8 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   width: 90px !important;
   min-height: calc(100vh - 56px);
   transition: 0.2s all ease;
-  background: linear-gradient(rgb(0, 0, 0), rgba(80, 80, 80, 0.8)), url(../images/sidebar.jpg);
+  /*background: linear-gradient(rgb(0, 0, 0), rgba(80, 80, 80, 0.8)), url(../images/sidebar.jpg);*/
+  background: linear-gradient(-45deg, #008bbd, #29dac8);
 }
 
 .sidebar .nav-item:last-child {
@@ -766,5 +767,16 @@ input:focus, select:focus, button:focus {
   100% {
     left: calc((1120px - 100vw)*-1);
     opacity: 0;
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

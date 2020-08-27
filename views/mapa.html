@@ -114,15 +114,12 @@
 
               <input type="hidden" id="inpVehiculoHidden" name="inpVehiculoHidden">
 
-              <ul class="nav nav-tabs" role="tablist">
+              <ul class="nav nav-tabs nav-fill" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" data-toggle="tab" href="#tabDatosGeneral" role="tab" aria-controls="tabDatosGeneral" aria-selected="true">Datos Generales</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tabConsolidado" role="tab" aria-controls="tabConsolidado" aria-selected="false" id="aTabConsolidado">Consolidado</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tabDetalle" role="tab" aria-controls="tabDetalle" aria-selected="false" id="aTabDetalle">Detalle</a>
+                  <a class="nav-link" data-toggle="tab" href="#tabDetalle" role="tab" aria-controls="tabDetalle" aria-selected="false" id="aTabDetalle">Movilidad</a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -175,36 +172,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="tabConsolidado">
-
-                  <div class="row marginTop10px">
-                      <div class="col-7">
-                          <input type="date" name="inpFechaConsolidado" id="inpFechaConsolidado" class="form-control input-sm inputSmall">
-                      </div>
-                      <div class="col-5">
-                          <button type="button" id="btnCargarConsolidado" class="btn btn-primary inputSmall width100porciento">Cargar</button>
-                      </div>
-                  </div>
-
-                  <div class="container">
-                    <div class="row marginTop10px">
-                        <div class="col-4 textCenter centerDiv" style="background: #007BFF; color: white">
-                            <label class="labelStyle">TOTALES</label>
-                        </div>
-                        <div class="col-4 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
-                            <label id="lblTotTimConsolidado" class="labelStyle">Timbs: -</label>
-                        </div>
-                        <div class="col-4 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
-                            <label id="lblTotBloqConsolidado" class="labelStyle">Bloqs: -</label>
-                        </div>
-                    </div>                  
-                  </div>
-
-                  <div class="height78porciento marginTop10px">
-                      <div id="gridConsolidados"></div> 
-                  </div>
-
-                </div>
                 <div class="tab-pane fade" id="tabDetalle">
                     <div class="row marginTop10px">
                         <div class="col-7">
@@ -213,23 +180,6 @@
                         <div class="col-5">
                             <button type="button" id="btnCargarDetalle" class="btn btn-primary inputSmall width100porciento">Cargar</button>
                         </div>
-                    </div>
-
-                    <div class="container">
-                      <div class="row marginTop10px">
-                          <div class="col-3 textCenter centerDiv" style="background: #007BFF; color: white">
-                              <label class="labelStyle">TOTALES</label>
-                          </div>
-                          <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
-                              <label id="lblTotSubDetalle" class="labelStyle">Sub.: -</label>
-                          </div>
-                          <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
-                              <label id="lblTotBajDetalle" class="labelStyle">Baj.: -</label>
-                          </div>
-                          <div class="col-3 textCenter centerDiv" style="border-bottom: 2px solid #007BFF;">
-                              <label id="lblTotBloqDetalle" class="labelStyle">Bloq: -</label>
-                          </div>
-                      </div>                  
                     </div>
 
                     <div class="height78porciento marginTop10px">
@@ -275,20 +225,6 @@
                         <div class="col-6">
                             <label class="labelStyle">Hora Final:</label>
                             <input type="time" id="inpHoraFinalRecorrido" class="form-control input-sm inputSmall">
-                        </div>
-                    </div>
-                    <div class="row marginTop15px">
-                        <div class="col-4"> 
-                            <label class="labelStyle"><input type="checkbox" id="verPasajeros"> Pasajeros</label>
-                        </div>
-                        <div class="col-8 displayFlex"> 
-                            <label class="labelStyle" style="padding-top: 3px"><input type="checkbox" id="verExcesosVelocidad"> Exc. Velo. </label> 
-                            <div class="input-group" style="width: auto; margin-left: 11px">
-                              <input type="number" name="inplimiteExcesoVelocidad" id="inplimiteExcesoVelocidad" value="40" class="form-control input-sm inputSmall" style="max-width: 50px">
-                              <div class="input-group-append inputSmallSinPad">
-                                <span class="input-group-text backgroundWhite fontSize13px">Km/H</span>
-                              </div>
-                            </div>
                         </div>
                     </div>
                 </div>
