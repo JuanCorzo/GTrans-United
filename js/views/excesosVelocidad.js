@@ -1,6 +1,6 @@
 $(function() {
 
-    const dataUser = JSON.parse(localStorage.getItem('userData'));
+    const dataUser = JSON.parse(localStorage.getItem('userDataGTU'));
 
 
     var LatandLong = {lat: 10.9832981, lng: -74.8017122};
@@ -35,7 +35,7 @@ $(function() {
         contentType: 'application/json',
         data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
@@ -58,7 +58,7 @@ $(function() {
           contentType: 'application/json',
           data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), limit: $("#inpVelocidad").val()}),
           beforeSend: function (xhr){ 
-              xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+              xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
               $("#btnCargar").prop("disabled", true);
           },
           success: function (res){

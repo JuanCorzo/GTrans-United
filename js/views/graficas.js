@@ -1,6 +1,6 @@
 $(function () {
     
-    const dataUser = JSON.parse(localStorage.getItem('userData'));
+    const dataUser = JSON.parse(localStorage.getItem('userDataGTU'));
 
 
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -19,7 +19,7 @@ $(function () {
         contentType: 'application/json',
         data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
@@ -42,7 +42,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
                 $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
@@ -95,7 +95,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
                 $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
@@ -148,7 +148,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val()}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
                 $("#btnCargar").prop("disabled", true);
             },
             success: function (response) {
@@ -161,6 +161,35 @@ $(function () {
                   dataR.push(value.promRuta);
                 });
                 cargarGraficaPromedios(fechas, dataV, dataR);
+            },
+            error: function (res) {
+                swal.error(res.responseJSON.message);
+            },
+            complete: function (res){
+                $("#btnCargar").prop("disabled", false);
+            }
+        });
+    }
+
+    function AjaxGraficaKilometraje() {
+        $.ajax({
+            url: urlAPI + "/tracking/getSumKilometrajeByCarroAndFecha",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion}),
+            beforeSend: function (xhr){ 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
+                $("#btnCargar").prop("disabled", true);
+            },
+            success: function (response) {
+                let fechas = new Array();
+                let data =  new Array();
+                $.each(response.data, function(index, value) {
+                    fechas.push(value.fecha);
+                    data.push(parseFloat(value.total));
+                });
+                cargarGraficaKilometraje(fechas, data);
             },
             error: function (res) {
                 swal.error(res.responseJSON.message);
@@ -316,6 +345,60 @@ $(function () {
         });
     }
 
+    function cargarGraficaKilometraje(fechas, data){
+        var ctx = document.getElementById("myAreaChart");
+        myLineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: fechas,
+            datasets: [{
+                label: 'Km Recorridos',
+                borderColor: "#0069d9",
+                backgroundColor: "#0069d9",
+                data: data,
+                lineTension: 0.3,
+                fill: false,
+                pointRadius: 5,
+                pointHoverRadius: 5,
+                pointHitRadius: 50,
+                pointBorderWidth: 2,
+            }],
+          },
+          options: {
+            title: {
+                display: true,
+                text: 'Grafica Kilometros Recorridos',
+                fontSize: 18,
+                fontStyle: 500,
+                padding: 20
+            },
+            scales: {
+              xAxes: [{
+                time: {
+                  unit: 'date'
+                },
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                    min: 0
+                },
+                gridLines: {
+                  color: "rgba(0, 0, 0, .125)",
+                }
+              }],
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        });
+    }
+
     function removeData(chart) {
         if(chart === undefined){
         }else{
@@ -342,6 +425,9 @@ $(function () {
                     return false;
                 }
                 AjaxGraficaPromedioDiario();
+                break;
+            case "Kilometraje":
+                AjaxGraficaKilometraje();
                 break;
         }
     });

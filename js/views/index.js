@@ -8,8 +8,8 @@ $(function() {
 	        contentType: 'application/json',
 	        data: JSON.stringify({cedula: cedula, pass: pass, isUnited: 1}),
 	        success: function (res){
-	        	localStorage.setItem('token', res.data.token);
-	        	localStorage.setItem('userData', JSON.stringify(res.data.userData));
+	        	localStorage.setItem('tokenGTU', res.data.token);
+	        	localStorage.setItem('userDataGTU', JSON.stringify(res.data.userData));
 
 	        	if(res.data.userData.empresas.lenght == 0){
 					swal.error('Sus vehiculos no estan vinculados a ninguna empresa disponible');
@@ -57,10 +57,10 @@ $(function() {
 			return false;	
 		}
 
-		let dataUser = JSON.parse(localStorage.getItem('userData'));
+		let dataUser = JSON.parse(localStorage.getItem('userDataGTU'));
 		let empresaSelect = [{id: parseInt($("#inputEmpresa").val()), empresa: $("#inputEmpresa option:selected").text()}];
 		dataUser.empresas = empresaSelect;
-		localStorage.setItem('userData', JSON.stringify(dataUser));
+		localStorage.setItem('userDataGTU', JSON.stringify(dataUser));
 
 		redirect();
 	});

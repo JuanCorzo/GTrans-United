@@ -1,6 +1,6 @@
 $(function () {
 
-    const dataUser = JSON.parse(localStorage.getItem('userData'));
+    const dataUser = JSON.parse(localStorage.getItem('userDataGTU'));
 
     
     var LatandLong = {lat: 10.9832981, lng: -74.8017122};
@@ -38,7 +38,7 @@ $(function () {
         contentType: 'application/json',
         data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
@@ -60,7 +60,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
             },
             success: function (response) {
                 $(".inpDatosVehiculo").val("N/A");
@@ -92,7 +92,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
             },
             success: function (response) {
                 $(".inpDatosVehiculoTracking").val("N/A");
@@ -120,7 +120,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({fecha: $("#inpFechaDetalle").val(), vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
                 $("#btnCargarDetalle").prop("disabled", true);
             },
             success: function (response) {
@@ -148,7 +148,7 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({fecha: fecha, hora1: hora1, hora2: hora2, vehiculo: vehiculo}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
                 $("#btnCargarRecorrido").prop("disabled", true);
             },
             success: function (response) {
@@ -458,13 +458,13 @@ $(function () {
         socket.onmessage = function(msg){
             if (pendienteLoad == false) {
                 $.each(JSON.parse(msg.data), function (i, item) {  
-                    if((dataUser.empresas.findIndex((element) => element.id == item.idCliente)) == -1) return false;
+                    if((dataUser.empresas.findIndex((element) => element.empresa == item.empresa)) == -1) return false;
                     createMarker(item.Latitude, item.longitude, item.codigo, item.empresa, item.Rumbo, item.VelocidadKPH, item.IDEvento);
                 });
                 pendienteLoad = true;
             }else{
                 $.each(JSON.parse(msg.data), function (i, item) {
-                    if((dataUser.empresas.findIndex((element) => element.id == item.idCliente)) == -1) return false;
+                    if((dataUser.empresas.findIndex((element) => element.empresa == item.empresa)) == -1) return false;
                     refreshMarker(markers[item.codigo], item.Latitude, item.longitude, item.Rumbo, item.VelocidadKPH, item.IDEvento);
                 });
             }

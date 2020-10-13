@@ -469,6 +469,14 @@ body.sidebar-toggled footer.sticky-footer {
   padding-left: 7px !important;
 }
 
+.paddingR5{
+  padding-right: 5px !important;
+}
+
+.paddingL5{
+  padding-left: 5px !important;
+}
+
 .margin0{
   margin: 0px;
 }
@@ -503,6 +511,10 @@ body.sidebar-toggled footer.sticky-footer {
 
 .marginLeft5px{
   margin-left: 5px;
+}
+
+.marginLeft10px{
+  margin-left: 10px;
 }
 
 .marginSuperior10px{
@@ -590,6 +602,11 @@ body.sidebar-toggled footer.sticky-footer {
 .paddingSuperiores5px{
   padding-top: 5px !important;
   padding-bottom: 5px !important;
+}
+
+.paddingSuperiores10px{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
 
 .paddingLaterales12px{
@@ -719,10 +736,91 @@ hr.styleHR {
 .fontBold{
   font-weight: bold;
 }
+.fontWeight500{
+  font-weight: 500;
+}
+.fontWeight400{
+  font-weight: 400;
+}
 .inputBorderBottom{
   border: none;
   border-bottom: 3px solid #007bff;
 }
+.burbujaVehiculoDash{
+  width: 100%; 
+  padding: 0px 0px 10px 10px; 
+  border-radius: 10px; 
+  font-size: 15px; 
+}
+.burbujaVehiculoDash.miniature{
+  padding: 0px; 
+}
+.burbujaVehiculoDash .bur-title{
+  width: 100%; 
+  padding: 2px 15px 2px 20px; 
+  border-radius: 0px 0px 0px 10px;
+}
+.burbujaVehiculoDash.miniature .bur-title{
+  border-radius: 0px;
+  text-align: center;
+}
+.burbujaVehiculoDash.miniature .icon-bus{
+  font-size: 40px !important;
+}
+.burbujaVehiculoDash .bur-btns{
+  background: white; 
+  width: 20px; 
+  height: 20px; 
+  border-radius: 50%; 
+  margin-left: 7px;
+  color: #525758 !important;
+}
+.burbujaVehiculoDash.bur-yellow{
+  border: 4px solid #ffea00; 
+  background: #fffff6;
+}
+.burbujaVehiculoDash.bur-yellow .icon-bus{
+  color: #ffea00;
+}
+.burbujaVehiculoDash.bur-yellow .bur-title{
+  background: #ffea0075; 
+  color: #525758;
+}
+.burbujaVehiculoDash.bur-green{
+  border: 4px solid #72ff72; 
+  background: #f6fff6;
+}
+.burbujaVehiculoDash.bur-green .icon-bus{
+  color: #72ff72;
+}
+.burbujaVehiculoDash.bur-green .bur-title{
+  background: #72ff7275; 
+  color: #525758;
+}
+.burbujaVehiculoDash.bur-gray{
+  border: 4px solid #bdbdbd; 
+  background: #fcfcfc;
+}
+.burbujaVehiculoDash.bur-gray .icon-bus{
+  color: #bdbdbd;
+}
+.burbujaVehiculoDash.bur-gray .bur-title{
+  background: #bdbdbd75; 
+  color: #525758;
+}
+.burbujaVehiculoDash.bur-red{
+  border: 4px solid #ff5722; 
+  background: #fff6f6a8;
+}
+.burbujaVehiculoDash.bur-red .icon-bus{
+  color: #ff5722;
+}
+.burbujaVehiculoDash.bur-red .bur-title{
+  background: #ff572275; 
+  color: #525758;
+}
+
+
 input:focus, select:focus, button:focus {
   outline: 0 !important;
   box-shadow: none !important;

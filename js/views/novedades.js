@@ -1,6 +1,6 @@
 $(function() {
 
-    const dataUser = JSON.parse(localStorage.getItem('userData'));
+    const dataUser = JSON.parse(localStorage.getItem('userDataGTU'));
 
 
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -18,7 +18,7 @@ $(function() {
         contentType: 'application/json',
         data: JSON.stringify({cedula: dataUser.identificacion, isUnited: 1}),
         beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+            xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
         },
         success: function (res){
             $.each(res.data, function(key, value) {
@@ -41,7 +41,7 @@ $(function() {
             contentType: 'application/json',
             data: JSON.stringify({cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
             beforeSend: function (xhr){ 
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+                xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
             },
             success: function (res){
                 var rtn = {name: [], data: []};
@@ -67,7 +67,7 @@ $(function() {
           contentType: 'application/json',
           data: JSON.stringify({fecha: $("#inpFecha").val(), vehiculo: $("#inpVehiculo").val(), cedula: dataUser.identificacion, empresas: JSON.stringify(dataUser.empresas)}),
           beforeSend: function (xhr){ 
-              xhr.setRequestHeader('Authorization', localStorage.getItem('token')); 
+              xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU')); 
               $("#btnCargar").prop("disabled", true);
           },
           success: function (res){
