@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <widget id="com.lmsoluciones.gtransunited" 
-		version="1.0.1" 
+		version="1.0.2" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:gap="https://phonegap.com/ns/1.0" 
 		xmlns:android="http://schemas.android.com/apk/res/android"
@@ -44,7 +44,6 @@
 <plugin name="cordova-plugin-browsersync" source="npm"/>
 
 <preference name="phonegap-version" value="cli-9.0.0" />
-
 
 <icon src="images/logo.png" />
 
