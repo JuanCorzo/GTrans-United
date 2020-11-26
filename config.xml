@@ -38,7 +38,6 @@
 <platform name="ios">
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
-    <icon src="images/logo-ios.png" />
 </platform>
 
 <plugin name="cordova-plugin-whitelist" source="npm"/>
