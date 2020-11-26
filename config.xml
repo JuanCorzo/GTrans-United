@@ -46,6 +46,6 @@
 
 <preference name="phonegap-version" value="cli-9.0.0" />
 
-<icon src="images/logo.png" />
+<icon src="images/logo-1024.png" />
 
 </widget>
