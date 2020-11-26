@@ -34,6 +34,7 @@
         <variable name="ANDROID_SUPPORT_VERSION" value="29.0.0"/>
     </plugin>
     <preference name="android-targetSdkVersion" value="29" />
+    <icon src="images/logo.png" />
 </platform>
 <platform name="ios">
     <allow-intent href="itms:*" />
@@ -45,7 +46,5 @@
 <plugin name="cordova-plugin-browsersync" source="npm"/>
 
 <preference name="phonegap-version" value="cli-9.0.0" />
-
-<icon src="images/logo-1024.png" />
 
 </widget>
