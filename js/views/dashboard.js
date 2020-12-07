@@ -242,7 +242,7 @@ $(function() {
         $("#divRowVehiculos_"+empresa).append(str);
     }
 
-    $("body").on('click','.btnTypeGridVehiculos',function(){
+    $("body").on('click tap touchstart','.btnTypeGridVehiculos',function(){
         if($(this).data("type") == 1){
             $(this).html('<span class="float-right">Vista: <i class="fas fa-th-list fontSize20px marginLeft10px"></i></span>');
             $(this).data("type", 2);

@@ -12,6 +12,8 @@
     <link href="libs/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+    <link href="../libs/normalize.css" rel="stylesheet">
+
   </head>
 
   <body class="width100porciento backgroundWhite hiddenScrollX">
@@ -26,16 +28,10 @@
       <div class="card card-login mx-auto marginTop20px">
         <div id="cardLogin" class="card-body paddingTop10">
             <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="inputCedula" class="form-control textCenter fontSize20px inputBorderBottom" placeholder="Cedula" autofocus="autofocus" autocomplete="off">
-                <label for="inputCedula" class="textCenter fontSize18px">Cedula</label>
-              </div>
+                <input type="number" id="inputCedula" class="form-control textCenter fontSize20px inputBorderBottom py-4 mt-3" placeholder="Cedula" autofocus="autofocus">
             </div>
             <div class="form-group">
-              <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control textCenter fontSize20px inputBorderBottom" placeholder="Contraseña" autocomplete="new-password">
-                <label for="inputPassword" class="textCenter fontSize18px">Contraseña</label>
-              </div>
+                <input type="password" id="inputPassword" class="form-control textCenter fontSize20px inputBorderBottom py-4 mt-3" placeholder="Contraseña">
             </div>
             <a class="btn btn-primary btn-block colorWhite" id="btnlogin">Ingresar</a>
         </div>

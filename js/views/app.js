@@ -20,7 +20,7 @@ $(function() {
 
 
 	// FUNCIONES MENU
-	$(document).on('click','.MenuLink',function(){
+	$(document).on('click tap touchstart','.MenuLink',function(){
 		
 		$("#sidebarToggle").click();
 			
