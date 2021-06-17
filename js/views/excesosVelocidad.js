@@ -2,30 +2,54 @@ $(function() {
 
     const dataUser = JSON.parse(localStorage.getItem('userDataGTU'));
 
-
     var LatandLong = {lat: 10.9832981, lng: -74.8017122};
     var zoom = 14;
     var map;
-
+    var marker;
+    
     $('#inpFecha').val(dateNow());
 
     // ---------------------------
 
-    map = new google.maps.Map(document.getElementById('googleMap'), {
-        zoom: zoom,
-        center: LatandLong,
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false
-    });
+    $.ajax({
+        url: urlAPI + "/tracking/getKeyMap",
+        type: "POST",
+        dataType: 'JSON',
+        contentType: 'application/json',
+        async: false,
+        beforeSend: function (xhr){ 
+            xhr.setRequestHeader('Authorization', localStorage.getItem('tokenGTU'));
+        },
+        success: function (res){
+            var script = document.createElement('script');
+            script.type = "text/javascript";
+            script.src = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=geometry&key=" + res.data[0].key;
+            script.onload = function () {
+                map = new google.maps.Map(document.getElementById('googleMap'), {
+                    zoom: zoom,
+                    center: LatandLong,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false
+                });
+            
+                marker = new google.maps.Marker({
+                    draggable: false,
+                    map: null,
+                    labelStyle: {opacity: 0.95}
+                });
+            };
+            document.getElementsByTagName('head')[0].appendChild(script);
 
-    var marker = new google.maps.Marker({
-        draggable: false,
-        map: null,
-        labelStyle: {opacity: 0.95}
+            return false;
+        },
+        error: function (res){
+            swal.error(res.responseJSON.message);
+            return false;
+        }
     });
 
     $.ajax({
